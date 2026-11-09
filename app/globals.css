@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #090A0F;
+  --foreground: #F8FAFC;
+  --muted: #94A3B8;
+  --card-bg: rgba(18, 20, 29, 0.7);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --ai-indigo: #6366F1;
+  --ai-cyan: #06B6D4;
+  --rugpull-amber: #F59E0B;
+  --darkpattern-crimson: #EF4444;
+  --ethical-emerald: #10B981;
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
@@ -12,15 +21,70 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: #090A0F;
+  color: #F8FAFC;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  selection-background-color: rgba(99, 102, 241, 0.3);
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #F8FAFC;
+}
+
+/* Glassmorphism & Editorial surfaces */
+.glass-panel {
+  background: rgba(18, 20, 29, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(24, 27, 40, 0.85);
+}
+
+.editorial-transition {
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle grid background */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Custom Range Input for Split-Diff */
+input[type="range"].split-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+input[type="range"].split-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: #F8FAFC;
+  border: 2px solid #6366F1;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
+  cursor: ew-resize;
 }
