@@ -26,11 +26,7 @@ export default function HeroSection() {
         {/* Etiqueta de pliego / Edición */}
         <div className="flex flex-wrap items-center gap-3 mb-8">
           <span className="rubber-stamp rubber-stamp-terracotta">
-            MANIFIESTO V2.6 • EDICIÓN IMPRESA
-          </span>
-          <span className="text-xs text-[#78716C] font-mono flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2E5A44]" />
-            Tipografía Newsreader • Papel 120g
+            MANIFIESTO V6.7
           </span>
         </div>
 
@@ -47,17 +43,13 @@ export default function HeroSection() {
           {/* Cita en pergamino */}
           <div className="paper-sheet-cream p-6 sm:p-8 rounded-xl border border-[#D6CBC0] relative mt-8">
             <div className="absolute -top-3.5 left-6 px-3 py-0.5 bg-[#F5EFEB] border border-[#D6CBC0] text-[11px] font-mono text-[#78716C] uppercase tracking-wider rounded">
-              Axioma de Taller
+              Axioma
             </div>
             <blockquote className="font-editorial text-xl sm:text-2xl text-[#44403C] italic leading-relaxed">
-              &ldquo;Hacer dinero es una consecuencia natural de construir valor sostenido; 
-              hacer buen software es un deber moral con quien deposita su tiempo, sus recursos 
+              &ldquo;Hacer dinero es una consecuencia natural de construir valor sostenido;
+              hacer buen software es un deber moral con quien deposita su tiempo, sus recursos
               y su confianza en nuestras manos.&rdquo;
             </blockquote>
-            <div className="mt-4 flex items-center justify-between text-xs font-mono text-[#78716C] pt-4 border-t border-[#E7E0D6]">
-              <span>— Cuaderno de Ingeniería Humana, 2026</span>
-              <span className="hidden sm:inline">Tratado de Oficio No. 01</span>
-            </div>
           </div>
         </div>
 
@@ -68,7 +60,7 @@ export default function HeroSection() {
             className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#292524] text-[#FDFBF7] font-medium text-sm hover:bg-[#1C1917] transition-all shadow-md shadow-stone-900/10 active:translate-y-0.5"
           >
             <BookOpen className="w-4 h-4 text-[#F5EFEB]" />
-            <span>Leer el Manifiesto de Taller</span>
+            <span>Leer el Manifiesto</span>
             <ArrowDown className="w-4 h-4" />
           </a>
 
