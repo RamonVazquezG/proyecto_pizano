@@ -3,13 +3,10 @@
 import React, { useState } from "react";
 import {
   Feather,
-  FileCheck,
   Shield,
   Heart,
   Coins,
-  Check,
-  X,
-  Sparkles,
+  AlertCircle,
 } from "lucide-react";
 
 interface Pillar {
@@ -70,12 +67,31 @@ export default function PromiseContract() {
   });
   const [signatureName, setSignatureName] = useState<string>("Pedro Picapiedra");
   const [showSignedModal, setShowSignedModal] = useState<boolean>(false);
+  const [sealError, setSealError] = useState<boolean>(false);
+  const [sealHash, setSealHash] = useState<string>("849201");
 
   const toggleSign = (id: string) => {
-    setSignedPillars((prev) => ({ ...prev, [id]: !prev[id] }));
+    setSignedPillars((prev) => {
+      const next = { ...prev, [id]: !prev[id] };
+      if (Object.values(next).every(Boolean)) {
+        setSealError(false);
+      }
+      return next;
+    });
   };
 
   const allSigned = Object.values(signedPillars).every(Boolean);
+  const pendingCount = Object.values(signedPillars).filter((v) => !v).length;
+
+  const handleSignAttempt = () => {
+    if (!allSigned) {
+      setSealError(true);
+      return;
+    }
+    setSealError(false);
+    setSealHash(Math.floor(100000 + Math.random() * 900000).toString());
+    setShowSignedModal(true);
+  };
 
   return (
     <section id="promesa" className="py-24 border-b border-[#E7E0D6] relative">
@@ -127,7 +143,11 @@ export default function PromiseContract() {
                 <div
                   key={pillar.id}
                   className={`paper-sheet p-6 rounded-xl border transition-all ${
-                    isSigned ? "border-[#D6CBC0] bg-white" : "border-[#E7E0D6] bg-[#FDFBF7]/60 opacity-80"
+                    isSigned
+                      ? "border-[#D6CBC0] bg-white"
+                      : sealError
+                      ? "border-[#991B1B] bg-[#FFF5F5]"
+                      : "border-[#E7E0D6] bg-[#FDFBF7]/60 opacity-80"
                   }`}
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
@@ -175,33 +195,69 @@ export default function PromiseContract() {
           </div>
 
           {/* Área de Firma Manuscrita */}
-          <div className="mt-10 pt-8 border-t-2 border-dashed border-[#D6CBC0] flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="w-full sm:w-auto">
-              <label
-                htmlFor="signature-input"
-                className="font-mono text-xs text-[#78716C] uppercase block mb-1.5"
+          <div className="mt-10 pt-8 border-t-2 border-dashed border-[#D6CBC0] space-y-4">
+            {!allSigned && (
+              <div
+                className={`p-3.5 rounded-lg border text-xs font-mono flex items-center justify-between gap-3 transition-all ${
+                  sealError
+                    ? "bg-[#FFF5F5] border-[#991B1B] text-[#991B1B]"
+                    : "bg-[#F5EFEB] border-[#D6CBC0] text-[#78716C]"
+                }`}
               >
-                Firma de Conformidad del Usuario:
-              </label>
-              <input
-                id="signature-input"
-                type="text"
-                value={signatureName}
-                onChange={(e) => setSignatureName(e.target.value)}
-                placeholder="Escribe tu nombre..."
-                className="font-serif italic text-lg px-4 py-2 bg-white border border-[#D6CBC0] rounded-lg text-[#1C1917] focus:outline-none focus:border-[#C85A32] shadow-sm w-full sm:w-72"
-              />
-            </div>
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>
+                    {sealError
+                      ? `Restricción activa: No puedes rubricar el contrato hasta sellar las 3 cláusulas (${pendingCount} pendiente${
+                          pendingCount > 1 ? "s" : ""
+                        }).`
+                      : `Para habilitar la firma del contrato debes sellar todas las cláusulas (${
+                          3 - pendingCount
+                        }/3 selladas).`}
+                  </span>
+                </div>
+              </div>
+            )}
 
-            <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-              <button
-                type="button"
-                onClick={() => setShowSignedModal(true)}
-                className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#292524] text-white font-serif font-bold text-sm hover:bg-black transition-all shadow-md active:translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
-              >
-                <Feather className="w-4 h-4 text-[#F5EFEB]" />
-                <span>Firmar y Descargar Pliego</span>
-              </button>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="w-full sm:w-auto">
+                <label
+                  htmlFor="signature-input"
+                  className="font-mono text-xs text-[#78716C] uppercase block mb-1.5"
+                >
+                  Firma de Conformidad del Usuario:
+                </label>
+                <input
+                  id="signature-input"
+                  type="text"
+                  value={signatureName}
+                  onChange={(e) => setSignatureName(e.target.value)}
+                  placeholder="Escribe tu nombre..."
+                  className="font-serif italic text-lg px-4 py-2 bg-white border border-[#D6CBC0] rounded-lg text-[#1C1917] focus:outline-none focus:border-[#C85A32] shadow-sm w-full sm:w-72"
+                />
+              </div>
+
+              <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <button
+                  type="button"
+                  onClick={handleSignAttempt}
+                  aria-disabled={!allSigned}
+                  className={`w-full sm:w-auto px-6 py-3 rounded-lg font-serif font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+                    allSigned
+                      ? "bg-[#292524] text-white hover:bg-black shadow-md active:translate-y-0.5 cursor-pointer"
+                      : "bg-[#E7E0D6] text-[#78716C] border border-[#D6CBC0] cursor-not-allowed opacity-75"
+                  }`}
+                >
+                  <Feather className="w-4 h-4" />
+                  <span>
+                    {allSigned
+                      ? "Firmar y Descargar Pliego"
+                      : `Sella las ${pendingCount} cláusula${
+                          pendingCount > 1 ? "s" : ""
+                        } restante${pendingCount > 1 ? "s" : ""} para firmar`}
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -219,14 +275,18 @@ export default function PromiseContract() {
                 Pacto Formal Registrado
               </h3>
               <p className="text-sm text-[#57534E]">
-                El pliego queda rubricado a nombre de <strong className="text-[#1C1917]">{signatureName || "Firmante Anónimo"}</strong>.
-                Todos los compromisos son vinculantes y están garantizados bajo los estatutos del Código LSC.
+                El pliego queda rubricado a nombre de{" "}
+                <strong className="text-[#1C1917]">
+                  {signatureName || "Firmante Anónimo"}
+                </strong>
+                . Todos los compromisos son vinculantes y están garantizados bajo los estatutos
+                del Código LSC.
               </p>
             </div>
 
             <div className="p-4 bg-[#F5EFEB] rounded-lg border border-[#D6CBC0] font-mono text-xs text-[#78716C] space-y-1">
-              <div>✦ Sello: LSC-SEAL-{Date.now().toString().slice(-6)}</div>
-              <div>✦ Estado: Activo e Inmutable</div>
+              <div>✦ Sello: LSC-SEAL-{sealHash}</div>
+              <div>✦ Estado: Activo e Inmutable (3/3 Cláusulas Selladas)</div>
               <div>✦ Jurisdicción: Ética Humana de Código Abierto</div>
             </div>
 
