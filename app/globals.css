@@ -1,90 +1,171 @@
 @import "tailwindcss";
 
 :root {
-  --background: #090A0F;
-  --foreground: #F8FAFC;
-  --muted: #94A3B8;
-  --card-bg: rgba(18, 20, 29, 0.7);
-  --card-border: rgba(255, 255, 255, 0.08);
-  --ai-indigo: #6366F1;
-  --ai-cyan: #06B6D4;
-  --rugpull-amber: #F59E0B;
-  --darkpattern-crimson: #EF4444;
-  --ethical-emerald: #10B981;
-  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --background: #FDFBF7; /* Papel hueso natural */
+  --foreground: #292524; /* Tinta carbón cálida */
+  --muted: #78716C;      /* Grafito suave */
+  --paper-card: #FFFFFF; /* Pliego de papel blanco */
+  --paper-cream: #F5EFEB;/* Cartulina pergamino */
+  --paper-border: #E7E0D6;/* Borde de encuadernación */
+  --paper-border-strong: #D6CBC0;
+  
+  /* Tintas de autor y taller */
+  --terracotta: #C85A32;   /* Sello terracota */
+  --ink-forest: #2E5A44;   /* Verde bosque de imprenta */
+  --ink-amber: #B45309;    /* Ocre de advertencia */
+  --ink-crimson: #991B1B;  /* Carmín de corrección */
+  --ink-indigo: #3730A3;   /* Azul tinta pluma */
+  --pencil-lead: #57534E;  /* Trazos de grafito */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #090A0F;
-  color: #F8FAFC;
+  background-color: #FDFBF7;
+  color: #292524;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
-  selection-background-color: rgba(99, 102, 241, 0.3);
-}
-
-::selection {
-  background: rgba(99, 102, 241, 0.3);
-  color: #F8FAFC;
-}
-
-/* Glassmorphism & Editorial surfaces */
-.glass-panel {
-  background: rgba(18, 20, 29, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-panel-hover {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel-hover:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(24, 27, 40, 0.85);
-}
-
-.editorial-transition {
-  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Subtle grid background */
-.bg-grid-pattern {
-  background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    radial-gradient(rgba(120, 113, 108, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
 }
 
-/* Custom Range Input for Split-Diff */
-input[type="range"].split-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: ew-resize;
+/* Tipografía de títulos con dignidad editorial */
+h1, h2, h3, .font-editorial {
+  font-family: var(--font-serif), Georgia, serif;
 }
 
-input[type="range"].split-slider::-webkit-slider-thumb {
+/* Pliego de papel con sombra analógica física */
+.paper-sheet {
+  background-color: #FFFFFF;
+  border: 1px solid var(--paper-border);
+  box-shadow: 
+    0 1px 3px rgba(41, 37, 36, 0.04),
+    0 8px 24px -4px rgba(41, 37, 36, 0.06);
+  border-radius: 12px;
+}
+
+.paper-sheet-cream {
+  background-color: #F8F4EE;
+  border: 1px solid var(--paper-border-strong);
+  box-shadow: 
+    0 2px 4px rgba(41, 37, 36, 0.05),
+    0 12px 28px -6px rgba(41, 37, 36, 0.07);
+}
+
+.paper-card-interactive {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.paper-card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 6px -1px rgba(41, 37, 36, 0.06),
+    0 14px 28px -4px rgba(41, 37, 36, 0.1);
+  border-color: #C2B4A3;
+}
+
+/* Sello de tinta artesanal */
+.rubber-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  text-transform: uppercase;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-width: 1.5px;
+  border-style: solid;
+  border-radius: 4px;
+  transform: rotate(-1.5deg);
+  opacity: 0.95;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+}
+
+.rubber-stamp-terracotta {
+  border-color: #C85A32;
+  color: #C85A32;
+  background-color: rgba(200, 90, 50, 0.06);
+}
+
+.rubber-stamp-forest {
+  border-color: #2E5A44;
+  color: #2E5A44;
+  background-color: rgba(46, 90, 68, 0.08);
+}
+
+.rubber-stamp-crimson {
+  border-color: #991B1B;
+  color: #991B1B;
+  background-color: rgba(153, 27, 27, 0.07);
+}
+
+.rubber-stamp-amber {
+  border-color: #B45309;
+  color: #B45309;
+  background-color: rgba(180, 83, 9, 0.07);
+}
+
+/* Nota adhesiva / Post-it de taller */
+.workshop-sticky {
+  background-color: #FEF9C3;
+  color: #713F12;
+  border-left: 4px solid #EAB308;
+  box-shadow: 0 4px 10px rgba(113, 63, 18, 0.08);
+  font-family: var(--font-serif);
+}
+
+/* Regla o guía milimetrada */
+.ruler-pattern {
+  background-image: repeating-linear-gradient(
+    to right,
+    #D6CBC0 0,
+    #D6CBC0 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  height: 6px;
+  width: 100%;
+}
+
+/* Slider táctil estilo taller */
+input[type="range"].workshop-slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 28px;
-  height: 28px;
+  background: #E7E0D6;
+  height: 8px;
   border-radius: 9999px;
-  background: #F8FAFC;
-  border: 2px solid #6366F1;
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
-  cursor: ew-resize;
+  outline: none;
+}
+
+input[type="range"].workshop-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #C85A32;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(41, 37, 36, 0.3);
+  cursor: grab;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"].workshop-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.15);
 }

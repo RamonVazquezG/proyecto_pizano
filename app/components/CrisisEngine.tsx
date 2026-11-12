@@ -4,419 +4,323 @@ import React, { useState } from "react";
 import {
   ShieldAlert,
   Flame,
-  Terminal,
+  Check,
+  ChevronRight,
+  AlertTriangle,
   Play,
   RotateCcw,
-  CheckCircle2,
-  ChevronRight,
-  Cpu,
-  Lock,
+  BookOpen,
 } from "lucide-react";
 
 interface CrisisPhase {
   timeWindow: string;
   title: string;
   actions: string[];
-  terminalLogs: string[];
-  metricStatus: string;
+  fieldNotes: string[];
+  statusLabel: string;
 }
 
-interface SimulationScenario {
+interface Scenario {
   id: "sim-a" | "sim-b";
-  code: string;
+  stamp: string;
+  stampClass: string;
   title: string;
-  subtitle: string;
-  badgeColor: string;
-  icon: React.ElementType;
+  description: string;
   phases: CrisisPhase[];
 }
 
-const SCENARIOS: Record<"sim-a" | "sim-b", SimulationScenario> = {
+const SCENARIOS: Record<"sim-a" | "sim-b", Scenario> = {
   "sim-a": {
     id: "sim-a",
-    code: "SIMULACIÓN A",
-    title: "Fuga de Datos / Vulnerabilidad Crítica",
-    subtitle:
-      "Protocolo de respuesta inmediata ante compromiso de credenciales o exfiltración no autorizada.",
-    badgeColor: "text-red-300 bg-red-500/15 border-red-500/30",
-    icon: ShieldAlert,
+    stamp: "PROTOCOLO 01",
+    stampClass: "rubber-stamp-crimson",
+    title: "Vulnerabilidad o Fuga Imprevista",
+    description:
+      "Protocolo de actuación inmediata ante cualquier fallo de seguridad, priorizando la honestidad radical por encima de la imagen corporativa.",
     phases: [
       {
-        timeWindow: "[T+0h a T+2h]",
-        title: "FASE 1: AISLAMIENTO Y PARADA DE EMERGENCIA",
+        timeWindow: "Primeras 2 Horas",
+        title: "Fase I: Aislamiento y Parada de Emergencia",
         actions: [
-          "Revocación inmediata de tokens de sesión y claves API.",
-          "Desconexión de microservicios comprometidos.",
-          "Despliegue de página de contingencia estática.",
+          "Revocación inmediata de todas las credenciales y llaves de acceso.",
+          "Desconexión preventiva de los sistemas afectados.",
+          "Publicación de aviso honesto de contingencia (sin excusas técnicas).",
         ],
-        terminalLogs: [
-          "[ALERTA T+00:02] Anomalía detectada en endpoint /api/v2/auth-vault",
-          "[ACTION T+00:08] Revocando 100% de JWT y API Keys activas (Kill-Switch ejecutado)",
-          "[ACTION T+00:19] Microservicio 'vault-worker' aislado de la red privada",
-          "[STATUS T+00:45] Página de contingencia estática servida vía CDN borde",
+        fieldNotes: [
+          "00:15h — Detección de anomalía. Se activa el protocolo de oficio.",
+          "00:30h — Llaves revocadas. Se apagan servidores vulnerables para proteger al usuario.",
+          "00:50h — Aviso público publicado con lenguaje humano, sin tecnicismos evasivos.",
         ],
-        metricStatus: "Contención perimetral: 100% Aislado",
+        statusLabel: "Contención perimetral: Completada",
       },
       {
-        timeWindow: "[T+2h a T+6h]",
-        title: "FASE 2: TRANSPARENCIA RADICAL PÚBLICA",
+        timeWindow: "De 2 a 6 Horas",
+        title: "Fase II: Claridad y Notificación Personal",
         actions: [
-          "Publicación de post-mortem en vivo sin eufemismos legales.",
-          "Notificación personalizada por correo a usuarios afectados.",
+          "Comunicación directa y personalizada a cada persona cuyos datos hayan podido verse expuestos.",
+          "Publicación del informe forense preliminar en acceso libre.",
         ],
-        terminalLogs: [
-          "[AUDIT T+02:15] Alcance forense determinado: 1,420 registros de metadatos expuestos",
-          "[PUBLIC T+03:00] Post-mortem en vivo publicado en status.lsc-manifesto.org (Cero eufemismos)",
-          "[NOTIFY T+04:12] Despacho de notificaciones directas por correo con detalle exacto por usuario",
+        fieldNotes: [
+          "02:40h — Se determina el alcance exacto: 1,420 registros comprometidos.",
+          "03:15h — Correos directos enviados con las recomendaciones prácticas.",
+          "04:00h — Publicación en el diario de incidentes público.",
         ],
-        metricStatus: "Transparencia: Notificación 100% enviada",
+        statusLabel: "Notificación directa: 100% efectuada",
       },
       {
-        timeWindow: "[T+6h a T+24h]",
-        title: "FASE 3: DESPLIEGUE DEL PARCHE Y AUDITORÍA",
+        timeWindow: "De 6 a 24 Horas",
+        title: "Fase III: Reparación y Auditoría Externa",
         actions: [
-          "Despliegue de hotfix con hash de commit público para verificación.",
-          "Auditoría externa de seguridad con publicación del dictamen.",
+          "Lanzamiento de parche con código abierto para que la comunidad pueda auditarlo.",
+          "Revisión por pares de terceros independientes.",
         ],
-        terminalLogs: [
-          "[PATCH T+07:40] Hotfix verificado desplegado — Commit público: 9f4a2c8e1b",
-          "[AUDIT T+14:20] Firma de ciberseguridad externa independiente inicia pentesting completo",
-          "[REPORT T+22:00] Dictamen técnico íntegro publicado sin censura en el repositorio",
+        fieldNotes: [
+          "08:30h — Parche desplegado y verificado por dos ingenieros independientes.",
+          "14:00h — Informe final publicado con lecciones aprendidas.",
         ],
-        metricStatus: "Vulnerabilidad corregida y auditada",
-      },
-      {
-        timeWindow: "[T+24h+]",
-        title: "FASE 4: REMEDIACIÓN Y COMPENSACIÓN",
-        actions: [
-          "Apertura de canal de indemnización y soporte prioritario.",
-        ],
-        terminalLogs: [
-          "[REMEDY T+24:30] Fondo de garantía LSC activado para usuarios afectados",
-          "[SUPPORT T+26:00] Canal de soporte humano prioritario 24/7 habilitado sin bots",
-          "[CLOSED T+36:00] Incidente cerrado con invariantes de regresión añadidos al CI/CD",
-        ],
-        metricStatus: "Remediación ética completada",
+        statusLabel: "Resolución definitiva: Verificada",
       },
     ],
   },
   "sim-b": {
     id: "sim-b",
-    code: "SIMULACIÓN B",
-    title: "Daño Ambiental / Bucle Descontrolado de Inferencia",
-    subtitle:
-      "Protocolo de corte térmico/energético ante recursión algorítmica o gasto desbocado de GPU.",
-    badgeColor: "text-amber-300 bg-amber-500/15 border-amber-500/30",
-    icon: Flame,
+    stamp: "PROTOCOLO 02",
+    stampClass: "rubber-stamp-forest",
+    title: "Picos de Consumo Energético Imprevisto",
+    description:
+      "Plan de contención ecológica cuando un bucle de infraestructura o un servicio externo dispara la huella de carbono de la aplicación.",
     phases: [
       {
-        timeWindow: "[T+0m a T+15m]",
-        title: "FASE 1: THROTTLING Y CORTE AUTOMÁTICO",
+        timeWindow: "Primeros 30 Minutos",
+        title: "Fase I: Frenado de Procesos Innecesarios",
         actions: [
-          "Monitoreo de consumo de GPU: parada por rebase de umbral térmico/KWh.",
-          "Fallback inmediato a modelos locales compactos o heurísticas clásicas.",
+          "Suspensión inmediata de tareas de procesamiento secundarias y modelos generativos pesados.",
+          "Paso automático a modo de bajo consumo y algoritmos locales livianos.",
         ],
-        terminalLogs: [
-          "[TELEMETRY T+00:01m] Alerta crítica: Cluster GPU-04 supera umbral de 450 KWh/h",
-          "[BREAKER T+00:03m] Disyuntor energético LSC activado: Inferencia masiva abortada",
-          "[FALLBACK T+00:05m] Tráfico redirigido a heurística determinista local (0.002 Wh/req)",
+        fieldNotes: [
+          "00:10h — Alerta de consumo inusual en servidores.",
+          "00:20h — Apagado de llamadas redundantes a APIs de terceros.",
         ],
-        metricStatus: "Corte automático en < 5 minutos",
+        statusLabel: "Consumo reducido al 15%",
       },
       {
-        timeWindow: "[T+15m a T+2h]",
-        title: "FASE 2: AUDITORÍA DE IMPACTO ENERGÉTICO",
+        timeWindow: "De 1 a 4 Horas",
+        title: "Fase II: Optimización de Código de Base",
         actions: [
-          "Cálculo del exceso de KWh consumidos y emisiones de CO2 generadas.",
-          "Identificación del bucle o recursión algorítmica fallida en producción.",
+          "Sustitución del cuello de botella por algoritmos deterministas eficientes.",
+          "Verificación del contador de vatios por petición.",
         ],
-        terminalLogs: [
-          "[ROOT-CAUSE T+00:28m] Detectada recursión infinita en agente autónomo de indexación",
-          "[ENERGY-CALC T+01:10m] Exceso energético cuantificado: 184.6 KWh (78.4 kg CO₂ eq)",
-          "[REPORT T+01:45m] Telemetría ambiental firmada y publicada en el panel público",
+        fieldNotes: [
+          "01:30h — Rediseño del algoritmo causante del sobrecalentamiento.",
+          "02:45h — Retorno a valores estándar de taller (0.002 Wh/acción).",
         ],
-        metricStatus: "Huella cuantificada: 184.6 KWh",
+        statusLabel: "Estabilidad ecológica restaurada",
       },
       {
-        timeWindow: "[T+2h+]",
-        title: "FASE 3: COMPENSACIÓN Y CORRECCIÓN ESTRUCTURAL",
+        timeWindow: "De 4 a 12 Horas",
+        title: "Fase III: Compensación y Transparencia",
         actions: [
-          "Adquisición y comprobación pública de créditos de remoción de carbono.",
-          "Rediseño de la cuota de inferencia con limitadores de tasa permanentes.",
+          "Publicación de la métrica exacta de consumo en el panel comunitario.",
+          "Compensación activa de la huella residual generada.",
         ],
-        terminalLogs: [
-          "[CARBON-OFFSET T+02:15h] Remoción verificada al 200% del exceso (Certificado #LSC-CO2-994)",
-          "[ARCH-FIX T+03:30h] Límite duro de presupuesto energético por proceso compilado en kernel",
-          "[VERIFIED T+04:00h] Sistema operando en modo de eficiencia estricta",
+        fieldNotes: [
+          "05:00h — Registro público de emisiones emitido.",
+          "06:30h — Créditos de mitigación ecológica aplicados.",
         ],
-        metricStatus: "200% Carbono compensado + Rate Limit Fijo",
+        statusLabel: "Balance neutro auditado",
       },
     ],
   },
 };
 
 export default function CrisisEngine() {
-  const [activeSim, setActiveSim] = useState<"sim-a" | "sim-b">("sim-a");
-  const [activePhaseIdx, setActivePhaseIdx] = useState<number>(0);
+  const [selectedScenario, setSelectedScenario] = useState<"sim-a" | "sim-b">("sim-a");
+  const [activePhaseIndex, setActivePhaseIndex] = useState<number>(0);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
 
-  const scenario = SCENARIOS[activeSim];
-  const currentPhase = scenario.phases[activePhaseIdx];
+  const scenario = SCENARIOS[selectedScenario];
+  const currentPhase = scenario.phases[activePhaseIndex];
 
-  const handleSelectSim = (sim: "sim-a" | "sim-b") => {
-    setActiveSim(sim);
-    setActivePhaseIdx(0);
-  };
-
-  const handleNextStep = () => {
-    if (activePhaseIdx < scenario.phases.length - 1) {
-      setActivePhaseIdx(activePhaseIdx + 1);
-    } else {
-      setActivePhaseIdx(0);
+  const handleNextPhase = () => {
+    if (activePhaseIndex < scenario.phases.length - 1) {
+      setActivePhaseIndex(activePhaseIndex + 1);
     }
   };
 
-  // Accumulate logs up to current phase
-  const visibleLogs = scenario.phases
-    .slice(0, activePhaseIdx + 1)
-    .flatMap((phase) => phase.terminalLogs);
+  const handleReset = () => {
+    setActivePhaseIndex(0);
+    setIsRunning(false);
+  };
 
   return (
-    <section id="crisis" className="py-24 relative border-b border-white/[0.08]">
+    <section id="crisis" className="py-24 border-b border-[#E7E0D6] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-amber-400 mb-3">
-              <span>04 // PLAN DE ACCIÓN DE CRISIS</span>
-              <span className="text-white/20">—</span>
-              <span>MONITOR DE AMENAZAS Y PROTOCOLO OPERATIVO</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-4">
-              Simulador de incidentes críticos en tiempo real
+        {/* Cabecera de la Sección */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-[#E7E0D6]">
+          <div className="max-w-2xl">
+            <span className="rubber-stamp rubber-stamp-terracotta mb-3">
+              CAPÍTULO IV • PLAN DE CONTINGENCIA
+            </span>
+            <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#1C1917] tracking-tight mt-2">
+              Protocolo de Acción ante Incidentes
             </h2>
-            <p className="text-[#94A3B8] text-base leading-relaxed">
-              La ética de un equipo se demuestra cuando ocurre un fallo grave. Selecciona uno
-              de los dos escenarios de crisis y detona cada fase del protocolo operativo.
+            <p className="text-sm sm:text-base text-[#78716C] mt-3 leading-relaxed">
+              Las cosas pueden fallar, pero la respuesta nunca debe ser el silencio, la mentira o el encubrimiento.
+              Aquí se documenta cómo responde el taller en cada etapa.
             </p>
           </div>
 
-          {/* Scenario Switcher */}
-          <div className="flex flex-wrap items-center gap-3 self-start">
+          {/* Selector de Escenario */}
+          <div className="bg-[#F5EFEB] p-1.5 rounded-lg border border-[#D6CBC0] flex items-center gap-1 self-start">
             <button
               type="button"
-              onClick={() => handleSelectSim("sim-a")}
-              className={`px-4 py-2.5 rounded-xl font-mono text-xs font-semibold border flex items-center gap-2 editorial-transition cursor-pointer ${
-                activeSim === "sim-a"
-                  ? "bg-red-500/20 border-red-500/50 text-red-200 shadow-lg shadow-red-500/10"
-                  : "glass-panel text-[#94A3B8] hover:text-white"
+              onClick={() => {
+                setSelectedScenario("sim-a");
+                handleReset();
+              }}
+              className={`px-3 py-1.5 rounded-md text-xs font-serif font-bold transition-all cursor-pointer ${
+                selectedScenario === "sim-a"
+                  ? "bg-white text-[#1C1917] shadow-sm border border-[#D6CBC0]"
+                  : "text-[#78716C] hover:text-[#1C1917]"
               }`}
             >
-              <ShieldAlert className="w-4 h-4 text-red-400" />
-              <span>Simulación A: Fuga de Datos</span>
+              Fuga de Datos
             </button>
-
             <button
               type="button"
-              onClick={() => handleSelectSim("sim-b")}
-              className={`px-4 py-2.5 rounded-xl font-mono text-xs font-semibold border flex items-center gap-2 editorial-transition cursor-pointer ${
-                activeSim === "sim-b"
-                  ? "bg-amber-500/20 border-amber-500/50 text-amber-200 shadow-lg shadow-amber-500/10"
-                  : "glass-panel text-[#94A3B8] hover:text-white"
+              onClick={() => {
+                setSelectedScenario("sim-b");
+                handleReset();
+              }}
+              className={`px-3 py-1.5 rounded-md text-xs font-serif font-bold transition-all cursor-pointer ${
+                selectedScenario === "sim-b"
+                  ? "bg-white text-[#1C1917] shadow-sm border border-[#D6CBC0]"
+                  : "text-[#78716C] hover:text-[#1C1917]"
               }`}
             >
-              <Flame className="w-4 h-4 text-amber-400" />
-              <span>Simulación B: Bucle de Inferencia</span>
+              Consumo Ecológico
             </button>
           </div>
         </div>
 
-        {/* Main Crisis Engine Board */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left Column: Interactive Flowchart Phases */}
-          <div className="lg:col-span-7 space-y-4">
-            <div className="glass-panel p-5 rounded-2xl border border-white/[0.1] flex items-center justify-between gap-4">
-              <div>
-                <span
-                  className={`inline-block px-2.5 py-0.5 rounded font-mono text-[11px] font-semibold border mb-1 ${scenario.badgeColor}`}
-                >
-                  {`${scenario.code} // PROTOCOLO ACTIVO`}
-                </span>
-                <h3 className="text-lg sm:text-xl font-bold text-[#F8FAFC]">
-                  {scenario.title}
-                </h3>
-                <p className="text-xs text-[#94A3B8] mt-0.5">{scenario.subtitle}</p>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={handleNextStep}
-                  className="px-4 py-2.5 rounded-xl bg-[#F8FAFC] text-[#090A0F] font-mono text-xs font-bold flex items-center gap-1.5 hover:bg-indigo-100 editorial-transition cursor-pointer"
-                >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>
-                    {activePhaseIdx < scenario.phases.length - 1
-                      ? "Avanzar Fase"
-                      : "Reiniciar Flujo"}
-                  </span>
-                </button>
-              </div>
+        {/* Ficha Principal de la Simulación */}
+        <div className="paper-sheet p-6 sm:p-10 rounded-2xl border border-[#D6CBC0] space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E7E0D6]">
+            <div>
+              <span className={`rubber-stamp ${scenario.stampClass} mb-2`}>
+                {scenario.stamp}
+              </span>
+              <h3 className="font-editorial text-2xl sm:text-3xl font-normal text-[#1C1917]">
+                {scenario.title}
+              </h3>
+              <p className="text-sm text-[#57534E] mt-1 max-w-2xl">
+                {scenario.description}
+              </p>
             </div>
 
-            {/* Sequential Flowchart Nodes */}
-            <div className="space-y-3 relative">
-              {scenario.phases.map((phase, idx) => {
-                const isCompleted = idx < activePhaseIdx;
-                const isCurrent = idx === activePhaseIdx;
-
-                return (
-                  <div
-                    key={phase.title}
-                    onClick={() => setActivePhaseIdx(idx)}
-                    className={`p-5 rounded-2xl border editorial-transition cursor-pointer ${
-                      isCurrent
-                        ? "glass-panel border-cyan-400/60 bg-cyan-950/[0.15] shadow-lg shadow-cyan-500/10"
-                        : isCompleted
-                        ? "glass-panel border-emerald-500/30 bg-emerald-950/[0.08]"
-                        : "glass-panel border-white/[0.06] opacity-60 hover:opacity-90"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <div className="flex items-center gap-2.5">
-                        <span
-                          className={`px-2.5 py-0.5 rounded font-mono text-xs font-bold ${
-                            isCurrent
-                              ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40"
-                              : isCompleted
-                              ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                              : "bg-white/[0.05] text-[#94A3B8]"
-                          }`}
-                        >
-                          {phase.timeWindow}
-                        </span>
-                        <h4 className="font-bold text-sm sm:text-base text-[#F8FAFC]">
-                          {phase.title}
-                        </h4>
-                      </div>
-
-                      {isCompleted ? (
-                        <span className="font-mono text-[11px] text-emerald-400 flex items-center gap-1">
-                          <CheckCircle2 className="w-4 h-4" /> Ejecutado
-                        </span>
-                      ) : isCurrent ? (
-                        <span className="font-mono text-[11px] text-cyan-300 flex items-center gap-1 animate-pulse">
-                          <ChevronRight className="w-4 h-4" /> En ejecución
-                        </span>
-                      ) : (
-                        <span className="font-mono text-[11px] text-slate-500">
-                          En espera
-                        </span>
-                      )}
-                    </div>
-
-                    <ul className="space-y-1.5 pl-1">
-                      {phase.actions.map((action, actionIdx) => (
-                        <li
-                          key={actionIdx}
-                          className="text-xs sm:text-sm text-[#94A3B8] flex items-start gap-2"
-                        >
-                          <span className="text-cyan-400 font-mono mt-0.5">├─</span>
-                          <span className={isCurrent ? "text-[#F8FAFC]" : ""}>
-                            {action}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
+            <div className="flex items-center gap-2 self-start">
+              <button
+                type="button"
+                onClick={handleReset}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#F5EFEB] border border-[#D6CBC0] text-xs font-serif font-bold text-[#57534E] hover:bg-white cursor-pointer"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                Reiniciar
+              </button>
             </div>
           </div>
 
-          {/* Right Column: Simulated Live Terminal & Telemetry */}
-          <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl border border-white/[0.12] bg-[#050609] overflow-hidden shadow-2xl">
-            <div>
-              {/* Terminal Top Bar */}
-              <div className="px-4 py-3 bg-white/[0.04] border-b border-white/[0.08] flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-cyan-400" />
-                  <span className="font-mono text-xs text-[#F8FAFC] font-semibold">
-                    lsc-crisis-daemon // tty1
-                  </span>
+          {/* Pasos / Cronología de Fases */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {scenario.phases.map((phase, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setActivePhaseIndex(idx)}
+                className={`p-3.5 rounded-lg border text-left transition-all cursor-pointer ${
+                  activePhaseIndex === idx
+                    ? "bg-[#F5EFEB] border-[#C85A32] shadow-sm"
+                    : idx < activePhaseIndex
+                    ? "bg-white border-[#2E5A44]/40"
+                    : "bg-white border-[#E7E0D6] opacity-60"
+                }`}
+              >
+                <div className="flex items-center justify-between text-[11px] font-mono text-[#78716C]">
+                  <span>Paso {idx + 1}</span>
+                  <span>{phase.timeWindow}</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setActivePhaseIdx(0)}
-                  className="font-mono text-[11px] text-[#94A3B8] hover:text-white flex items-center gap-1 cursor-pointer"
-                >
-                  <RotateCcw className="w-3 h-3" /> Reset
-                </button>
-              </div>
-
-              {/* Live Telemetry Metrics */}
-              <div className="grid grid-cols-2 gap-2 p-4 border-b border-white/[0.07] bg-white/[0.01] font-mono text-xs">
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                  <span className="text-[10px] text-[#94A3B8] uppercase block">
-                    FASE ACTIVA
-                  </span>
-                  <span className="text-cyan-300 font-bold">
-                    {currentPhase.timeWindow} ({activePhaseIdx + 1}/
-                    {scenario.phases.length})
-                  </span>
+                <div className="font-serif font-bold text-xs text-[#1C1917] mt-1">
+                  {phase.title}
                 </div>
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                  <span className="text-[10px] text-[#94A3B8] uppercase block">
-                    ESTADO DEL SISTEMA
+              </button>
+            ))}
+          </div>
+
+          {/* Pliego de Detalles de la Fase Activa */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Medidas Concretas */}
+            <div className="lg:col-span-7 space-y-4">
+              <h4 className="font-editorial text-xl font-normal text-[#1C1917]">
+                Medidas Vinculantes de esta Fase:
+              </h4>
+              <ul className="space-y-3">
+                {currentPhase.actions.map((act, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 p-3.5 rounded-lg bg-[#FDFBF7] border border-[#E7E0D6] text-xs text-[#44403C]"
+                  >
+                    <Check className="w-4 h-4 text-[#2E5A44] shrink-0 mt-0.5" />
+                    <span>{act}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="pt-2 flex items-center justify-between">
+                <span className="text-xs font-mono text-[#78716C]">
+                  Estado: <strong className="text-[#2E5A44]">{currentPhase.statusLabel}</strong>
+                </span>
+
+                {activePhaseIndex < scenario.phases.length - 1 ? (
+                  <button
+                    type="button"
+                    onClick={handleNextPhase}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#292524] text-white text-xs font-serif font-bold hover:bg-black transition-all cursor-pointer shadow-sm"
+                  >
+                    <span>Avanzar a la Siguiente Fase</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                ) : (
+                  <span className="rubber-stamp rubber-stamp-forest text-xs">
+                    PROTOCOLO CULMINADO CON ÉXITO
                   </span>
-                  <span className="text-emerald-400 font-bold">
-                    {currentPhase.metricStatus}
-                  </span>
-                </div>
-              </div>
-
-              {/* Console Log Stream */}
-              <div className="p-5 font-mono text-xs space-y-2.5 min-h-[280px]">
-                <div className="text-slate-500">
-                  # Monitor de Amenazas LSC inicializado. Selecciona o avanza fases para
-                  inspeccionar la trazabilidad operativa:
-                </div>
-
-                {visibleLogs.map((log, index) => {
-                  const isAlert = log.includes("[ALERTA") || log.includes("[TELEMETRY");
-                  const isVerified =
-                    log.includes("[CLOSED") ||
-                    log.includes("[VERIFIED") ||
-                    log.includes("[CARBON-OFFSET");
-
-                  return (
-                    <div
-                      key={index}
-                      className={`p-2 rounded border-l-2 leading-relaxed ${
-                        isAlert
-                          ? "bg-red-500/10 border-red-400 text-red-200"
-                          : isVerified
-                          ? "bg-emerald-500/10 border-emerald-400 text-emerald-200"
-                          : "bg-white/[0.02] border-cyan-400/60 text-slate-200"
-                      }`}
-                    >
-                      {log}
-                    </div>
-                  );
-                })}
+                )}
               </div>
             </div>
 
-            {/* Bottom Guarantee Bar */}
-            <div className="p-4 bg-white/[0.03] border-t border-white/[0.08] flex items-center justify-between font-mono text-[11px] text-[#94A3B8]">
-              <span className="flex items-center gap-1.5">
-                {activeSim === "sim-a" ? (
-                  <Lock className="w-3.5 h-3.5 text-emerald-400" />
-                ) : (
-                  <Cpu className="w-3.5 h-3.5 text-amber-400" />
-                )}
-                Bitácora inmutable de incidentes
-              </span>
-              <span className="text-emerald-400">Zero-Coverup Policy</span>
+            {/* Cuaderno de Bitácora / Notas de Campo */}
+            <div className="lg:col-span-5 bg-[#292524] text-[#F5EFEB] rounded-xl p-5 font-mono text-xs shadow-inner border border-[#1C1917] space-y-3 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between pb-3 border-b border-stone-700 text-[11px] text-stone-400">
+                  <span className="flex items-center gap-1.5">
+                    <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                    Cuaderno de Bitácora en Vivo
+                  </span>
+                  <span>Hora Local</span>
+                </div>
+
+                <div className="space-y-2 mt-3">
+                  {currentPhase.fieldNotes.map((note, i) => (
+                    <div key={i} className="text-[11px] text-stone-300 border-l-2 border-[#C85A32] pl-2.5 py-0.5">
+                      {note}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-stone-700 text-[10px] text-stone-400 flex items-center justify-between">
+                <span>Transparencia Radical</span>
+                <span className="text-emerald-400">Auditable públicamente</span>
+              </div>
             </div>
           </div>
         </div>

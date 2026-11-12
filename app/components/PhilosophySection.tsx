@@ -3,26 +3,27 @@
 import React, { useState } from "react";
 import {
   Clock,
-  FileSignature,
-  Zap,
+  BookOpen,
+  Leaf,
   Database,
-  Wrench,
-  CheckCircle2,
-  AlertOctagon,
-  SlidersHorizontal,
+  Hammer,
+  RotateCcw,
+  Sparkles,
+  ArrowRight,
+  PenTool,
 } from "lucide-react";
 
 interface ThesisItem {
   id: string;
   number: string;
-  lscTitle: string;
+  artisanTitle: string;
   predatoryTitle: string;
   icon: React.ElementType;
   spanClass: string;
-  lscDescription: string;
+  artisanDescription: string;
   predatoryDescription: string;
-  lscMetricLabel: string;
-  lscMetricValue: string;
+  artisanMetricLabel: string;
+  artisanMetricValue: string;
   predatoryMetricLabel: string;
   predatoryMetricValue: string;
 }
@@ -30,299 +31,192 @@ interface ThesisItem {
 const THESES: ThesisItem[] = [
   {
     id: "retencion",
-    number: "TESIS 01",
-    lscTitle: "Retención por Utilidad",
-    predatoryTitle: "Retención por Fricción",
+    number: "Dilema I",
+    artisanTitle: "La Dignidad del Tiempo",
+    predatoryTitle: "La Trampa del Minuto Forzado",
     icon: Clock,
     spanClass: "lg:col-span-2",
-    lscDescription:
-      "No medimos nuestro impacto por la cantidad de minutos que logramos atrapar a un usuario en una pantalla, sino por la velocidad y dignidad con la que resolvemos su problema para que pueda volver a su vida.",
+    artisanDescription:
+      "No medimos nuestro éxito atrapando a una persona frente a la pantalla, sino permitiéndole resolver su necesidad con precisión y elegancia para que pueda regresar a su vida real.",
     predatoryDescription:
-      "Optimización de 'Time-on-Site' mediante flujos laberínticos, notificaciones de urgencia falsas y barreras artificiales que penalizan al usuario cuando intenta desconectarse o exportar su trabajo.",
-    lscMetricLabel: "Tiempo medio de resolución",
-    lscMetricValue: "< 45 seg (Cero fricción)",
-    predatoryMetricLabel: "KPI extractivo",
-    predatoryMetricValue: "+42 min de captura atencional",
+      "Algoritmos obsesionados con 'tiempo en pantalla', bucles de notificaciones ansiosas y barreras artificiales que castigan al usuario cuando desea desconectarse.",
+    artisanMetricLabel: "Resolución digna",
+    artisanMetricValue: "< 45 seg y libertad",
+    predatoryMetricLabel: "Vicio extractivo",
+    predatoryMetricValue: "+45 min de fricción artificial",
   },
   {
     id: "estabilidad",
-    number: "TESIS 02",
-    lscTitle: "Estabilidad Contractual",
-    predatoryTitle: "Monopolio Retroactivo",
-    icon: FileSignature,
+    number: "Dilema II",
+    artisanTitle: "La Palabra Dada es Inmutable",
+    predatoryTitle: "El Monopolio del Cerco",
+    icon: BookOpen,
     spanClass: "lg:col-span-1",
-    lscDescription:
-      "Un acuerdo comercial es inmutable. Jamás atraeremos usuarios con condiciones accesibles para luego modificar unilateralmente los términos cuando el costo de migración sea prohibitivo.",
+    artisanDescription:
+      "Un pacto de oficio no se traiciona. Jamás atraeremos a una comunidad con condiciones accesibles para luego cambiar las reglas del juego cuando migrar sea imposible.",
     predatoryDescription:
-      "Estrategia 'Bait & Switch': capturar el ecosistema con licencias gratuitas o abiertas y, tras lograr dependencia técnica total (vendor lock-in), imponer peajes retroactivos sobre versiones ya desplegadas.",
-    lscMetricLabel: "Inmutabilidad de licencia",
-    lscMetricValue: "100% Perpetua por versión",
+      "Prometer apertura hasta lograr dependencia total y luego cobrar peajes retroactivos o cerrar el candado.",
+    artisanMetricLabel: "Compromiso de versión",
+    artisanMetricValue: "100% Perpetua e intacta",
     predatoryMetricLabel: "Riesgo de Rug-Pull",
-    predatoryMetricValue: "Modificación unilateral ToS",
+    predatoryMetricValue: "Cambio de cláusulas a traición",
   },
   {
     id: "eficiencia",
-    number: "TESIS 03",
-    lscTitle: "Eficiencia Técnica",
-    predatoryTitle: "Despliegue Innecesario de Hype",
-    icon: Zap,
+    number: "Dilema III",
+    artisanTitle: "La Herramienta Adecuada",
+    predatoryTitle: "El Despilfarro Artificial",
+    icon: Leaf,
     spanClass: "lg:col-span-1",
-    lscDescription:
-      "No inflaremos nuestra infraestructura con modelos masivos de IA generativa para complacer narrativas de inversión a costa de la latencia del usuario y del consumo eléctrico global.",
+    artisanDescription:
+      "No encenderemos hornos nucleares para tostar un pan. Usamos código artesanal limpio, ligero y sensato, sin inflar el software con modelos gigantes cuando no sean necesarios.",
     predatoryDescription:
-      "Invocar LLMs multimillonarios en parámetros para tareas deterministas triviales (como ordenar listas o validar formularios), multiplicando por 1,000x la huella energética y degradando la respuesta.",
-    lscMetricLabel: "Huella energética por acción",
-    lscMetricValue: "0.002 Wh (Algoritmo local)",
-    predatoryMetricLabel: "Desperdicio por Hype IA",
-    predatoryMetricValue: "2.8 Wh / llamada innecesaria",
+      "Consumir vatios masivos de energía invocando servidores lejanos para tareas que una simple fórmula matemática resuelve en microsegundos.",
+    artisanMetricLabel: "Huella energética",
+    artisanMetricValue: "0.002 Wh",
+    predatoryMetricLabel: "Consumo desmedido",
+    predatoryMetricValue: "2.8 Wh",
   },
   {
     id: "propiedad",
-    number: "TESIS 04",
-    lscTitle: "Propiedad y Soberanía",
-    predatoryTitle: "Cosecha Oculta de Datos",
+    number: "Dilema IV",
+    artisanTitle: "Tus Datos son tu Territorio",
+    predatoryTitle: "Tus Datos son un Territorio alquilado",
     icon: Database,
-    spanClass: "lg:col-span-1",
-    lscDescription:
-      "Los datos del usuario pertenecen exclusivamente al usuario. No existen cláusulas en letra pequeña que transfieran la propiedad de sus creaciones para alimentar nuestros algoritmos.",
+    spanClass: "lg:col-span-2",
+    artisanDescription:
+      "Tus creaciones, notas y documentos te pertenecen en su totalidad. No entrenamos algoritmos ajenos con tus palabras ni espiamos lo que construyes en privado.",
     predatoryDescription:
-      "Cláusulas ocultas en el EULA que otorgan sub-licencias perpetuas e irrevocables para raspar repositorios privados, documentos e interacciones con el fin de entrenar modelos comerciales propietarios.",
-    lscMetricLabel: "Entrenamiento sin permiso",
-    lscMetricValue: "0 Bytes recolectados",
-    predatoryMetricLabel: "Ingesta silenciosa",
-    predatoryMetricValue: "Opt-out oculto en 5 submenús",
+      "Apropiación silenciosa mediante cláusulas ocultas de términos de servicio que convierten cada archivo del usuario en combustible de entrenamiento sin pago.",
+    artisanMetricLabel: "Privacidad de origen",
+    artisanMetricValue: "Cero extracción silenciosa",
+    predatoryMetricLabel: "Apropiación",
+    predatoryMetricValue: "Tus archivos son su producto",
   },
   {
-    id: "mantenibilidad",
-    number: "TESIS 05",
-    lscTitle: "Mantenibilidad y Longevidad",
-    predatoryTitle: "Obsolescencia Inducida",
-    icon: Wrench,
-    spanClass: "lg:col-span-1",
-    lscDescription:
-      "Construimos arquitecturas desacopladas y preparadas para perdurar en el tiempo, sin forzar migraciones artificiales ni descontinuar funciones críticas con el fin de obligar a recomprar licencias.",
+    id: "oficio",
+    number: "Dilema V",
+    artisanTitle: "El Cuidado del Producto",
+    predatoryTitle: "La Obsolescencia Programada",
+    icon: Hammer,
+    spanClass: "lg:col-span-3",
+    artisanDescription:
+      "El software de calidad se cuida como un mueble de roble o un buen reloj: se repara, se respeta la retro-compatibilidad y no se destruye a propósito con actualizaciones diseñadas para obligar a recomprar.",
     predatoryDescription:
-      "Romper deliberadamente la retrocompatibilidad de formatos de archivo cada 18 meses y apagar servidores de validación para forzar el paso de licencias perpetuas a alquileres mensuales perpetuos.",
-    lscMetricLabel: "Formatos abiertos y exportables",
-    lscMetricValue: "Soporte LTS 10+ años",
-    predatoryMetricLabel: "Ciclo de caducidad forzada",
-    predatoryMetricValue: "Bloqueo de versión cada 12m",
+      "Rediseños constantes que desorientan al usuario, degradación planificada del rendimiento y muros de suscripción forzosa.",
+    artisanMetricLabel: "Longevidad",
+    artisanMetricValue: "Diseñado para perdurar",
+    predatoryMetricLabel: "Obsolescencia",
+    predatoryMetricValue: "Caducidad programada",
   },
 ];
 
 export default function PhilosophySection() {
-  const [globalMode, setGlobalMode] = useState<"lsc" | "predatory" | "split">("split");
-  const [cardModes, setCardModes] = useState<Record<string, "lsc" | "predatory">>({});
-
-  const toggleCardMode = (id: string) => {
-    setCardModes((prev) => {
-      const current = prev[id] ?? (globalMode === "predatory" ? "predatory" : "lsc");
-      return { ...prev, [id]: current === "lsc" ? "predatory" : "lsc" };
-    });
-  };
+  const [comparisonMode, setComparisonMode] = useState<"artisan" | "predatory">("artisan");
 
   return (
-    <section
-      id="filosofia"
-      className="py-24 relative border-b border-white/[0.08]"
-    >
+    <section id="filosofia" className="py-24 border-b border-[#E7E0D6] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-14">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-indigo-400 mb-3">
-              <span>01 // NUESTRA FILOSOFÍA</span>
-              <span className="text-white/20">—</span>
-              <span>VALOR REAL VS. EXTRACCIÓN PREDATORIA</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-4">
-              Cinco distinciones fundacionales de nuestra agencia
+        {/* Cabecera de Sección */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-[#E7E0D6]">
+          <div className="max-w-2xl">
+            <span className="rubber-stamp rubber-stamp-terracotta mb-3">
+              CAPÍTULO I • FILOSOFÍA DE OFICIO
+            </span>
+            <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#1C1917] tracking-tight mt-2">
+              Los Cinco Dilemas
             </h2>
-            <p className="text-[#94A3B8] text-base leading-relaxed">
-              Contraste directo entre la ingeniería orientada a la dignidad del usuario y los
-              modelos de extracción predominantes en la industria. Inspecciona cada tesis o
-              alterna el modo global de comparación.
+            <p className="text-sm sm:text-base text-[#78716C] mt-3 leading-relaxed">
+              Frente a la cultura del consumo voraz y las interfaces hechas para enganchar,
+              proponemos la calma del arte-sano: herramientas transparentes, duraderas y respetuosas.
             </p>
           </div>
 
-          {/* Global Lens Switcher */}
-          <div className="glass-panel p-1.5 rounded-xl inline-flex items-center gap-1 self-start">
-            <span className="px-2.5 py-1 text-xs font-mono text-[#94A3B8] hidden sm:inline-flex items-center gap-1.5">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-indigo-400" />
-              Vista:
-            </span>
+          {/* Selector de Perspectiva */}
+          <div className="bg-[#F5EFEB] p-1.5 rounded-lg border border-[#D6CBC0] flex items-center gap-1 shrink-0 self-start">
             <button
               type="button"
-              onClick={() => {
-                setGlobalMode("split");
-                setCardModes({});
-              }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono editorial-transition cursor-pointer ${
-                globalMode === "split"
-                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/40"
-                  : "text-[#94A3B8] hover:text-white"
+              onClick={() => setComparisonMode("artisan")}
+              className={`px-4 py-2 rounded-md text-xs font-serif font-bold transition-all cursor-pointer ${
+                comparisonMode === "artisan"
+                  ? "bg-white text-[#1C1917] shadow-sm border border-[#D6CBC0]"
+                  : "text-[#78716C] hover:text-[#1C1917]"
               }`}
             >
-              Comparativa Dual
+              🌿 El Arte-sano
             </button>
             <button
               type="button"
-              onClick={() => {
-                setGlobalMode("lsc");
-                setCardModes({});
-              }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono editorial-transition cursor-pointer ${
-                globalMode === "lsc"
-                  ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
-                  : "text-[#94A3B8] hover:text-white"
+              onClick={() => setComparisonMode("predatory")}
+              className={`px-4 py-2 rounded-md text-xs font-serif font-bold transition-all cursor-pointer ${
+                comparisonMode === "predatory"
+                  ? "bg-[#991B1B] text-white shadow-sm"
+                  : "text-[#78716C] hover:text-[#991B1B]"
               }`}
             >
-              Enfoque LSC
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setGlobalMode("predatory");
-                setCardModes({});
-              }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono editorial-transition cursor-pointer ${
-                globalMode === "predatory"
-                  ? "bg-red-500/20 text-red-300 border border-red-500/40"
-                  : "text-[#94A3B8] hover:text-white"
-              }`}
-            >
-              Enfoque Predatorio
+              ⚠️ El Depredador
             </button>
           </div>
         </div>
 
-        {/* Bento Grid (5 Foundational Theses) */}
+        {/* Retícula de Pliegos de Tesis */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {THESES.map((thesis) => {
-            const Icon = thesis.icon;
-            const activeCardView =
-              cardModes[thesis.id] ?? (globalMode === "predatory" ? "predatory" : "lsc");
-            const isSplit = globalMode === "split" && !cardModes[thesis.id];
+          {THESES.map((item) => {
+            const Icon = item.icon;
+            const isArtisan = comparisonMode === "artisan";
 
             return (
               <article
-                key={thesis.id}
-                className={`${thesis.spanClass} glass-panel rounded-2xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group editorial-transition ${
-                  !isSplit && activeCardView === "predatory"
-                    ? "border-red-500/30 bg-red-950/[0.12]"
-                    : "border-white/[0.08]"
+                key={item.id}
+                className={`paper-sheet p-6 sm:p-8 rounded-xl transition-all relative flex flex-col justify-between ${
+                  item.spanClass
+                } ${
+                  isArtisan
+                    ? "hover:border-[#C85A32]/50 hover:shadow-md"
+                    : "border-[#991B1B]/40 bg-[#FFF5F5]"
                 }`}
               >
-                {/* Card Top Header */}
                 <div>
-                  <div className="flex items-center justify-between gap-4 mb-5">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-400">
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-indigo-400 block">
-                          {thesis.number}
-                        </span>
-                        <h3 className="text-lg font-bold text-[#F8FAFC] leading-snug">
-                          {thesis.lscTitle}{" "}
-                          <span className="text-[#94A3B8] font-normal text-sm">vs.</span>{" "}
-                          <span className="text-red-400/90 font-medium text-base">
-                            {thesis.predatoryTitle}
-                          </span>
-                        </h3>
-                      </div>
-                    </div>
-
-                    {/* Individual Toggle Button */}
-                    <button
-                      type="button"
-                      onClick={() => toggleCardMode(thesis.id)}
-                      className="shrink-0 px-2.5 py-1 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] font-mono text-[11px] text-[#94A3B8] hover:text-white editorial-transition cursor-pointer"
-                      title="Alternar lente en esta tarjeta"
+                  {/* Encabezado de Tarjeta */}
+                  <div className="flex items-center justify-between pb-4 border-b border-[#E7E0D6]">
+                    <span className="font-mono text-xs uppercase tracking-wider text-[#78716C]">
+                      {item.number}
+                    </span>
+                    <div
+                      className={`w-8 h-8 rounded-md flex items-center justify-center ${
+                        isArtisan
+                          ? "bg-[#F5EFEB] text-[#C85A32] border border-[#D6CBC0]"
+                          : "bg-[#991B1B]/10 text-[#991B1B] border border-[#991B1B]/20"
+                      }`}
                     >
-                      {isSplit
-                        ? "Inspeccionar 1:1"
-                        : activeCardView === "lsc"
-                        ? "Ver Trampa →"
-                        : "← Ver LSC"}
-                    </button>
+                      <Icon className="w-4 h-4" />
+                    </div>
                   </div>
 
-                  {/* Content Display: Either Dual Split or Single Focused Mode */}
-                  {isSplit ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
-                      {/* LSC Ethical Column */}
-                      <div className="p-4 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20 flex flex-col justify-between">
-                        <div>
-                          <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-xs font-semibold mb-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                            <span>COMPROMISO LSC: {thesis.lscTitle.toUpperCase()}</span>
-                          </div>
-                          <p className="text-sm text-[#F8FAFC]/90 leading-relaxed">
-                            {thesis.lscDescription}
-                          </p>
-                        </div>
-                        <div className="mt-4 pt-3 border-t border-emerald-500/15 flex items-center justify-between font-mono text-xs">
-                          <span className="text-[#94A3B8]">{thesis.lscMetricLabel}:</span>
-                          <span className="text-emerald-300 font-semibold">
-                            {thesis.lscMetricValue}
-                          </span>
-                        </div>
-                      </div>
+                  {/* Título y Cuerpo */}
+                  <h3 className="font-editorial text-2xl font-normal text-[#1C1917] mt-5 mb-3">
+                    {isArtisan ? item.artisanTitle : item.predatoryTitle}
+                  </h3>
 
-                      {/* Predatory Extraction Column */}
-                      <div className="p-4 rounded-xl bg-red-500/[0.05] border border-red-500/20 flex flex-col justify-between">
-                        <div>
-                          <div className="flex items-center gap-1.5 text-red-400 font-mono text-xs font-semibold mb-2">
-                            <AlertOctagon className="w-3.5 h-3.5 shrink-0" />
-                            <span>EXTRACCIÓN: {thesis.predatoryTitle.toUpperCase()}</span>
-                          </div>
-                          <p className="text-sm text-[#94A3B8] leading-relaxed">
-                            {thesis.predatoryDescription}
-                          </p>
-                        </div>
-                        <div className="mt-4 pt-3 border-t border-red-500/15 flex items-center justify-between font-mono text-xs">
-                          <span className="text-[#94A3B8]">{thesis.predatoryMetricLabel}:</span>
-                          <span className="text-red-300 font-semibold">
-                            {thesis.predatoryMetricValue}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : activeCardView === "lsc" ? (
-                    <div className="p-5 rounded-xl bg-emerald-500/[0.07] border border-emerald-500/25 my-2">
-                      <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-semibold mb-2">
-                        <CheckCircle2 className="w-4 h-4" />
-                        <span>ENFOQUE ÉTICO LSC — {thesis.lscTitle}</span>
-                      </div>
-                      <p className="text-sm sm:text-base text-[#F8FAFC] leading-relaxed mb-4">
-                        {thesis.lscDescription}
-                      </p>
-                      <div className="flex items-center justify-between pt-3 border-t border-emerald-500/20 font-mono text-xs">
-                        <span className="text-[#94A3B8]">{thesis.lscMetricLabel}</span>
-                        <span className="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">
-                          {thesis.lscMetricValue}
-                        </span>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="p-5 rounded-xl bg-red-500/[0.08] border border-red-500/30 my-2">
-                      <div className="flex items-center gap-2 text-red-400 font-mono text-xs font-semibold mb-2">
-                        <AlertOctagon className="w-4 h-4" />
-                        <span>ANTIPATRÓN DE LA INDUSTRIA — {thesis.predatoryTitle}</span>
-                      </div>
-                      <p className="text-sm sm:text-base text-red-100/90 leading-relaxed mb-4">
-                        {thesis.predatoryDescription}
-                      </p>
-                      <div className="flex items-center justify-between pt-3 border-t border-red-500/20 font-mono text-xs">
-                        <span className="text-red-300/70">{thesis.predatoryMetricLabel}</span>
-                        <span className="px-2.5 py-0.5 rounded bg-red-500/20 text-red-300 font-semibold">
-                          {thesis.predatoryMetricValue}
-                        </span>
-                      </div>
-                    </div>
-                  )}
+                  <p className="text-sm text-[#57534E] leading-relaxed">
+                    {isArtisan ? item.artisanDescription : item.predatoryDescription}
+                  </p>
+                </div>
+
+                {/* Sello de Métrica al Pie */}
+                <div
+                  className={`mt-6 pt-4 border-t flex items-center justify-between text-xs font-mono rounded px-3 py-2 ${
+                    isArtisan
+                      ? "border-[#E7E0D6] bg-[#FDFBF7] text-[#2E5A44]"
+                      : "border-[#991B1B]/20 bg-white text-[#991B1B]"
+                  }`}
+                >
+                  <span className="text-[#78716C]">
+                    {isArtisan ? item.artisanMetricLabel : item.predatoryMetricLabel}:
+                  </span>
+                  <span className="font-bold">
+                    {isArtisan ? item.artisanMetricValue : item.predatoryMetricValue}
+                  </span>
                 </div>
               </article>
             );

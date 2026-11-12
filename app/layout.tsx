@@ -1,30 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Newsreader, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const serifFont = Newsreader({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
+const sansFont = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const monoFont = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Código LSC Moderno | Manifiesto Interactivo de Ética Tecnológica",
+  title: "Taller & Manifiesto de Ética Tecnológica | Código LSC",
   description:
-    "El software como herramienta humana, no como trampa financiera. Manifiesto interactivo de ingeniería ética: Transparencia en IA, Inviolabilidad Contractual Anti Rug-Pull y Erradicación de Dark Patterns.",
+    "El software como oficio humano, no como trampa financiera. Un taller editorial interactivo sobre transparencia en IA, inmutabilidad de contratos y diseño libre de engaños.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${serifFont.variable} ${sansFont.variable} ${monoFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#090A0F] text-[#F8FAFC] selection:bg-indigo-500/30 selection:text-slate-100">
+      <body className="min-h-full flex flex-col bg-[#FDFBF7] text-[#292524] selection:bg-[#E7D7C1] selection:text-[#1C1917]">
         {children}
       </body>
     </html>
