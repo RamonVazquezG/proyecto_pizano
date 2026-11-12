@@ -107,7 +107,7 @@ export default function PromiseContract() {
                   Contrato de Garantía Humana
                 </span>
                 <span className="font-mono text-xs text-[#78716C]">
-                  Protocolo de Taller • Válido a perpetuidad
+                  Válido a perpetuidad
                 </span>
               </div>
             </div>

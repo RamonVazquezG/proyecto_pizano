@@ -3,13 +3,9 @@
 import React, { useState } from "react";
 import {
   FileCode,
-  Sparkles,
-  Zap,
   CheckCircle,
-  Eye,
-  Sliders,
-  Layers,
   Leaf,
+  ScanLine,
 } from "lucide-react";
 
 interface CodeLine {
@@ -94,8 +90,16 @@ const CODE_SAMPLE: CodeLine[] = [
 ];
 
 export default function AiAuditTool() {
-  const [sliderPosition, setSliderPosition] = useState<number>(50);
+  const [sliderPosition, setSliderPosition] = useState<number>(0);
   const [selectedAiLine, setSelectedAiLine] = useState<CodeLine | null>(CODE_SAMPLE[7]);
+
+  const totalLines = CODE_SAMPLE.length;
+  // Mapea el porcentaje (0 a 100) a la línea que el sensor está leyendo actualmente (0 a 14)
+  const scannedLineNumber = Math.round((sliderPosition / 100) * totalLines);
+
+  const detectedAiLinesCount = CODE_SAMPLE.filter(
+    (line) => line.isAiGenerated && line.lineNumber <= scannedLineNumber
+  ).length;
 
   return (
     <div className="space-y-6">
@@ -108,8 +112,9 @@ export default function AiAuditTool() {
             Código de Autor vs. Código Asistido
           </h4>
           <p className="text-xs text-[#78716C] mt-1 max-w-2xl">
-            Desliza el visor para revelar con honestidad qué líneas fueron escritas a mano
-            y cuáles requirieron asistencia algorítmica, incluyendo su huella energética y licencia.
+            Desliza el sensor para inspeccionar línea por línea el código: a medida que avanza el
+            escáner, deja de subrayar el código humano ya verificado y mantiene marcadas en otro
+            color únicamente las líneas generadas por IA que fue encontrando.
           </p>
         </div>
 
@@ -125,15 +130,18 @@ export default function AiAuditTool() {
 
       {/* Control Deslizante Táctil de Taller */}
       <div className="paper-sheet-cream p-4 rounded-lg space-y-2 border border-[#D6CBC0]">
-        <div className="flex justify-between items-center text-xs font-mono text-[#78716C]">
+        <div className="flex flex-wrap justify-between items-center gap-2 text-xs font-mono text-[#78716C]">
           <span className="flex items-center gap-1.5 font-serif font-bold text-[#1C1917]">
-            🖋️ Manuscrito Original (0%)
+            🖋️ Inicio del Pliego (0%)
           </span>
-          <span className="bg-white px-2 py-0.5 rounded border border-[#D6CBC0] font-bold text-[#C85A32]">
-            Visor al {sliderPosition}%
+          <span className="bg-white px-2.5 py-0.5 rounded border border-[#D6CBC0] font-bold text-[#C85A32] flex items-center gap-1.5">
+            <ScanLine className="w-3.5 h-3.5 animate-pulse" />
+            {scannedLineNumber === 0
+              ? "Sensor en reposo (0%)"
+              : `Leyendo Línea ${scannedLineNumber}/${totalLines} (${sliderPosition}%) • ${detectedAiLinesCount} IA halladas`}
           </span>
           <span className="flex items-center gap-1.5 font-serif font-bold text-[#2E5A44]">
-            🔍 Revelado Total de Atribución (100%)
+            🔍 Escaneo Completo (100%)
           </span>
         </div>
         <input
@@ -152,28 +160,75 @@ export default function AiAuditTool() {
         <div className="lg:col-span-7 bg-[#292524] text-[#F5EFEB] rounded-xl p-4 sm:p-5 font-mono text-xs overflow-x-auto shadow-inner border border-[#1C1917]">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-700 text-[11px] text-stone-400">
             <span>archivo: lib/telemetry/anonymizer.ts</span>
-            <span className="text-amber-400">TypeScript 5.x</span>
+            <span className="text-amber-400">
+              {scannedLineNumber === 0
+                ? "Desliza el sensor para escanear"
+                : scannedLineNumber < totalLines
+                ? `Escaneando línea #${scannedLineNumber}...`
+                : `Auditoría finalizada (${detectedAiLinesCount} líneas IA)`}
+            </span>
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-1 relative">
             {CODE_SAMPLE.map((line) => {
-              const showAiHighlight = line.isAiGenerated && sliderPosition > 57;
+              // Línea exacta sobre la que está posado el haz del visor ahora mismo
+              const isCurrentlyReading =
+                scannedLineNumber > 0 &&
+                scannedLineNumber < totalLines &&
+                line.lineNumber === scannedLineNumber;
+
+              // Línea por la que ya pasó el visor (o cuando llegó al 100%)
+              const hasBeenScanned = line.lineNumber <= scannedLineNumber;
+
+              // Si fue leída y es de IA, queda marcada permanentemente en otro color
+              const showAiHighlight = line.isAiGenerated && hasBeenScanned;
+
               return (
                 <div
                   key={line.lineNumber}
                   onClick={() => line.isAiGenerated && setSelectedAiLine(line)}
-                  className={`flex items-start gap-3 px-2 py-0.5 rounded transition-colors ${showAiHighlight
+                  className={`relative flex items-start gap-3 px-2 py-1 rounded transition-all duration-200 ${
+                    isCurrentlyReading
+                      ? line.isAiGenerated
+                        ? "bg-[#C85A32]/45 border-l-4 border-amber-300 text-white shadow-[0_0_15px_rgba(200,90,50,0.45)] translate-x-1"
+                        : "bg-emerald-500/20 border-l-4 border-emerald-400 text-emerald-100 underline decoration-emerald-400/80 underline-offset-4 shadow-[0_0_12px_rgba(16,185,129,0.25)] translate-x-1"
+                      : showAiHighlight
                       ? "bg-[#C85A32]/25 border-l-2 border-[#C85A32] text-amber-100 cursor-pointer"
-                      : "text-stone-300 hover:bg-stone-800/60"
-                    }`}
+                      : hasBeenScanned
+                      ? "text-stone-300 border-l-2 border-transparent"
+                      : "text-stone-500 border-l-2 border-transparent opacity-70"
+                  }`}
                 >
-                  <span className="text-stone-500 w-5 text-right select-none shrink-0">
+                  <span
+                    className={`w-5 text-right select-none shrink-0 transition-colors ${
+                      isCurrentlyReading
+                        ? "text-emerald-300 font-bold"
+                        : showAiHighlight
+                        ? "text-amber-300 font-bold"
+                        : "text-stone-500"
+                    }`}
+                  >
                     {line.lineNumber}
                   </span>
+
                   <span className="flex-1 whitespace-pre">{line.code}</span>
-                  {showAiHighlight && line.aiTag && (
-                    <span className="text-[10px] bg-[#C85A32] text-white px-1.5 py-0.2 rounded font-sans uppercase shrink-0">
-                      Asistido
+
+                  {/* Indicador en vivo cuando el cabezal lector pasa por la línea */}
+                  {isCurrentlyReading && !line.isAiGenerated && (
+                    <span className="text-[10px] bg-emerald-600/80 text-white px-1.5 py-0.5 rounded font-sans uppercase tracking-wider shrink-0 animate-pulse">
+                      Leyendo...
+                    </span>
+                  )}
+
+                  {isCurrentlyReading && line.isAiGenerated && (
+                    <span className="text-[10px] bg-amber-500 text-stone-950 font-bold px-1.5 py-0.5 rounded font-sans uppercase tracking-wider shrink-0 animate-bounce">
+                      ¡IA Detectada!
+                    </span>
+                  )}
+
+                  {!isCurrentlyReading && showAiHighlight && (
+                    <span className="text-[10px] bg-[#C85A32] text-white px-1.5 py-0.5 rounded font-sans uppercase shrink-0">
+                      IA Asistido
                     </span>
                   )}
                 </div>
@@ -198,14 +253,18 @@ export default function AiAuditTool() {
             {selectedAiLine ? (
               <div className="space-y-3 text-xs">
                 <div>
-                  <span className="text-[#78716C] block text-[11px] font-mono">ASISTENTE UTILIZADO:</span>
+                  <span className="text-[#78716C] block text-[11px] font-mono">
+                    ASISTENTE UTILIZADO:
+                  </span>
                   <span className="font-semibold text-[#1C1917]">
                     {selectedAiLine.aiTag || "Módulo de generación"}
                   </span>
                 </div>
 
                 <div className="p-3 bg-[#FDFBF7] rounded-lg border border-[#E7E0D6]">
-                  <span className="text-[#78716C] block text-[10px] font-mono mb-1">PETICIÓN REGISTRADA:</span>
+                  <span className="text-[#78716C] block text-[10px] font-mono mb-1">
+                    PETICIÓN REGISTRADA:
+                  </span>
                   <p className="italic text-[#44403C] font-serif text-xs">
                     {selectedAiLine.originPrompt}
                   </p>
@@ -224,7 +283,9 @@ export default function AiAuditTool() {
 
                 <div className="text-[11px] text-[#78716C] flex items-start gap-2 pt-2">
                   <CheckCircle className="w-3.5 h-3.5 text-[#2E5A44] shrink-0 mt-0.5" />
-                  <span>Sin mezclas ilegales ni apropiación de código ajeno sin atribución.</span>
+                  <span>
+                    Sin mezclas ilegales ni apropiación de código ajeno sin atribución.
+                  </span>
                 </div>
               </div>
             ) : (
