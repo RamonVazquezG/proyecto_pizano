@@ -38,10 +38,10 @@ export default function DarkPatternDeobfuscator() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span className="rubber-stamp rubber-stamp-crimson mb-2">
-            INSTRUMENTO DE TALLER 03 • LÁPIZ ROJO DE CORRECCIÓN
+            INSTRUMENTO DE LA REGLA 03 • LÁPIZ ROJO DE CORRECCIÓN
           </span>
           <h4 className="font-editorial text-xl font-normal text-[#1C1917]">
-            Desarmador de Trampas: Manipulación Culpígena vs. Trato Justo
+            Manipulación Culpígena vs. Trato Justo
           </h4>
           <p className="text-xs text-[#78716C] mt-1 max-w-2xl">
             Compara cómo una interfaz deshonesta chantajea emocionalmente al usuario para evitar que cancele,
@@ -70,7 +70,7 @@ export default function DarkPatternDeobfuscator() {
           ) : (
             <>
               <ToggleLeft className="w-5 h-5 text-[#991B1B]" />
-              <span>Ver la Trampa Habitual</span>
+              <span>Modo Honesto LSC: INACTIVO</span>
             </>
           )}
         </button>
@@ -84,10 +84,10 @@ export default function DarkPatternDeobfuscator() {
               <Check className="w-6 h-6" />
             </div>
             <h5 className="font-editorial text-2xl font-normal text-[#1C1917]">
-              Suscripción Cancelada con Respeto
+              Suscripción Cancelada
             </h5>
             <p className="text-sm text-[#57534E] max-w-md mx-auto">
-              Sin preguntas inquisitivas, sin penalizaciones y sin letras pequeñas.
+              Sin penalizaciones y sin letras pequeñas. <br/>
               Tus datos te acompañan y puedes volver cuando lo desees.
             </p>
             <button
@@ -166,7 +166,7 @@ export default function DarkPatternDeobfuscator() {
 
                 {trapStep > 0 && (
                   <div className="p-3 bg-[#FEF3C7] border border-[#F59E0B] rounded-lg text-xs text-[#92400E]">
-                    ⚠️ <strong>Traba burocrática No. {trapStep}:</strong> Por favor llama por teléfono en horario comercial
+                    ⚠️ <strong>Confirmación Adicional No. {trapStep}:</strong> Por favor llama por teléfono en horario comercial
                     a nuestras oficinas para obtener un código de 8 dígitos de confirmación.
                   </div>
                 )}

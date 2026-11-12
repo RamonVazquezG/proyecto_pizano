@@ -162,10 +162,10 @@ export default function CrisisEngine() {
               CAPÍTULO IV • PLAN DE CONTINGENCIA
             </span>
             <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#1C1917] tracking-tight mt-2">
-              Protocolo de Taller ante Incidentes
+              Protocolo de Acción ante Incidentes
             </h2>
             <p className="text-sm sm:text-base text-[#78716C] mt-3 leading-relaxed">
-              Las cosas pueden fallar, pero la respuesta nunca debe ser el silencio, la mentira o el encubrimiento. 
+              Las cosas pueden fallar, pero la respuesta nunca debe ser el silencio, la mentira o el encubrimiento.
               Aquí se documenta cómo responde el taller en cada etapa.
             </p>
           </div>

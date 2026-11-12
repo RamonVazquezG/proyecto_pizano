@@ -58,7 +58,7 @@ const CODE_SAMPLE: CodeLine[] = [
     isAiGenerated: true,
     aiTag: "Asistido // Claude-3.5-Sonnet (Revisado manualmente)",
     originPrompt:
-      "Anotación: 'Genera un filtro diferencial de anonimización k-anonymity sin retener IPs en memoria'",
+      "'Genera un filtro diferencial de anonimización k-anonymity sin retener IPs en memoria'",
     energyWh: "0.42 Wh (Huella eléctrica auditada)",
     licenseDetected: "GPL-3.0 Compatible (Atribución: @open-privacy/k-anon v2.1)",
     licenseCompliant: true,
@@ -102,10 +102,10 @@ export default function AiAuditTool() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span className="rubber-stamp rubber-stamp-forest mb-2">
-            INSTRUMENTO DE TALLER 01 • CUADERNO DE TRAZABILIDAD
+            INSTRUMENTO DE LA REGLA 01 • CUADERNO DE TRAZABILIDAD
           </span>
           <h4 className="font-editorial text-xl font-normal text-[#1C1917]">
-            Lupa de Atribución: Código de Autor vs. Código Asistido
+            Código de Autor vs. Código Asistido
           </h4>
           <p className="text-xs text-[#78716C] mt-1 max-w-2xl">
             Desliza el visor para revelar con honestidad qué líneas fueron escritas a mano
@@ -157,7 +157,7 @@ export default function AiAuditTool() {
 
           <div className="space-y-1">
             {CODE_SAMPLE.map((line) => {
-              const showAiHighlight = line.isAiGenerated && sliderPosition > 25;
+              const showAiHighlight = line.isAiGenerated && sliderPosition > 57;
               return (
                 <div
                   key={line.lineNumber}

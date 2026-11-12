@@ -25,13 +25,13 @@ export default function FeeSimulator() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <span className="rubber-stamp rubber-stamp-amber mb-2">
-            INSTRUMENTO DE TALLER 02 • BÁSCULA CONTRACTUAL
+            INSTRUMENTO DE LA REGLA 02 • BÁSCULA CONTRACTUAL
           </span>
           <h4 className="font-editorial text-xl font-normal text-[#1C1917]">
-            El Libro de Cuentas: Cobro Sorpresivo vs. Pacto Sellado
+            Cobro Sorpresivo vs. Pacto Sellado
           </h4>
           <p className="text-xs text-[#78716C] mt-1 max-w-2xl">
-            Compara el impacto de un peaje retroactivo impuesto a traición 
+            Compara el impacto de un cobro de peaje retroactivo impuesto a traición
             frente a la garantía de un contrato de versión sellado y permanente.
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function FeeSimulator() {
                 className="font-serif font-bold text-sm text-[#1C1917] flex items-center gap-2"
               >
                 <Users className="w-4 h-4 text-[#C85A32]" />
-                Comunidad de Usuarios / Descargas del Software:
+                Descargas del Software:
               </label>
               <span className="font-mono text-xs font-bold bg-[#F5EFEB] px-2.5 py-1 rounded border border-[#E7E0D6] text-[#1C1917]">
                 {downloads.toLocaleString("es-ES")} descargas
@@ -93,27 +93,10 @@ export default function FeeSimulator() {
             />
 
             <div className="flex justify-between text-[11px] font-mono text-[#78716C]">
-              <span>10,000 (Taller artesanal)</span>
-              <span>500,000 (Comunidad viva)</span>
+              <span>10,000 (Grupo pequeño)</span>
+              <span>500,000 (Comunidad activa)</span>
               <span>1,000,000 (Éxito viral)</span>
             </div>
-          </div>
-
-          {/* Explicación de contexto */}
-          <div className="p-4 rounded-lg bg-[#FDFBF7] border border-[#E7E0D6] text-xs text-[#57534E] leading-relaxed">
-            {mode === "retroactive" ? (
-              <p>
-                <strong className="text-[#991B1B]">Alerta de peaje abusivo:</strong> Cuando un proveedor cambia las reglas a posteriori, 
-                cobra un peaje fijo (\$0.15) por cada instalación, incluyendo reinstalaciones en nuevos dispositivos.
-                Un juego o programa 100% gratuito acumula deudas imposibles de pagar.
-              </p>
-            ) : (
-              <p>
-                <strong className="text-[#2E5A44]">Paz de taller:</strong> Bajo el Código LSC, las versiones descargadas 
-                están selladas para siempre. Cualquier cambio de modelo de negocio aplica solo para nuevas versiones opcionales 
-                y con 90 días naturales de preaviso formal.
-              </p>
-            )}
           </div>
         </div>
 
@@ -172,11 +155,11 @@ export default function FeeSimulator() {
             <div className="pt-4 border-t border-dashed border-[#D6CBC0] text-center">
               {mode === "retroactive" ? (
                 <span className="rubber-stamp rubber-stamp-crimson text-[11px]">
-                  RUG-PULL DETECTADO // QUIEBRA INJUSTA
+                 QUIEBRA INJUSTA
                 </span>
               ) : (
                 <span className="rubber-stamp rubber-stamp-forest text-[11px]">
-                  ACUERDO PERPETUO // PROTECCIÓN TOTAL
+                  ACUERDO PERPETUO
                 </span>
               )}
             </div>

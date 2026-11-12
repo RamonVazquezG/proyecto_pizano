@@ -31,7 +31,7 @@ interface ThesisItem {
 const THESES: ThesisItem[] = [
   {
     id: "retencion",
-    number: "TESIS I",
+    number: "Dilema I",
     artisanTitle: "La Dignidad del Tiempo",
     predatoryTitle: "La Trampa del Minuto Forzado",
     icon: Clock,
@@ -47,7 +47,7 @@ const THESES: ThesisItem[] = [
   },
   {
     id: "estabilidad",
-    number: "TESIS II",
+    number: "Dilema II",
     artisanTitle: "La Palabra Dada es Inmutable",
     predatoryTitle: "El Monopolio del Cerco",
     icon: BookOpen,
@@ -55,7 +55,7 @@ const THESES: ThesisItem[] = [
     artisanDescription:
       "Un pacto de oficio no se traiciona. Jamás atraeremos a una comunidad con condiciones accesibles para luego cambiar las reglas del juego cuando migrar sea imposible.",
     predatoryDescription:
-      "El anzuelo digital ('Bait & Switch'): prometer apertura hasta lograr dependencia total y luego cobrar peajes retroactivos o cerrar el candado.",
+      "Prometer apertura hasta lograr dependencia total y luego cobrar peajes retroactivos o cerrar el candado.",
     artisanMetricLabel: "Compromiso de versión",
     artisanMetricValue: "100% Perpetua e intacta",
     predatoryMetricLabel: "Riesgo de Rug-Pull",
@@ -63,25 +63,25 @@ const THESES: ThesisItem[] = [
   },
   {
     id: "eficiencia",
-    number: "TESIS III",
+    number: "Dilema III",
     artisanTitle: "La Herramienta Adecuada",
     predatoryTitle: "El Despilfarro Artificial",
     icon: Leaf,
     spanClass: "lg:col-span-1",
     artisanDescription:
-      "No encenderemos hornos nucleares para tostar un pan. Usamos código artesanal limpio, ligero y sensato, sin inflar el software con modelos gigantes innecesarios.",
+      "No encenderemos hornos nucleares para tostar un pan. Usamos código artesanal limpio, ligero y sensato, sin inflar el software con modelos gigantes cuando no sean necesarios.",
     predatoryDescription:
       "Consumir vatios masivos de energía invocando servidores lejanos para tareas que una simple fórmula matemática resuelve en microsegundos.",
     artisanMetricLabel: "Huella energética",
-    artisanMetricValue: "0.002 Wh (Mínimo impacto)",
+    artisanMetricValue: "0.002 Wh",
     predatoryMetricLabel: "Consumo desmedido",
-    predatoryMetricValue: "2.8 Wh por vanidad",
+    predatoryMetricValue: "2.8 Wh",
   },
   {
     id: "propiedad",
-    number: "TESIS IV",
+    number: "Dilema IV",
     artisanTitle: "Tus Datos son tu Territorio",
-    predatoryTitle: "La Minería Silenciosa",
+    predatoryTitle: "Tus Datos son un Territorio alquilado",
     icon: Database,
     spanClass: "lg:col-span-2",
     artisanDescription:
@@ -95,13 +95,13 @@ const THESES: ThesisItem[] = [
   },
   {
     id: "oficio",
-    number: "TESIS V",
-    artisanTitle: "El Cuidado del Detalle",
-    predatoryTitle: "La Obsolescencia Acelerada",
+    number: "Dilema V",
+    artisanTitle: "El Cuidado del Producto",
+    predatoryTitle: "La Obsolescencia Programada",
     icon: Hammer,
     spanClass: "lg:col-span-3",
     artisanDescription:
-      "El software de calidad se cuida como un mueble de roble o un buen reloj: se repara, se respeta la compatibilidad hacia atrás y no se destruye a propósito con actualizaciones diseñadas para obligar a recomprar.",
+      "El software de calidad se cuida como un mueble de roble o un buen reloj: se repara, se respeta la retro-compatibilidad y no se destruye a propósito con actualizaciones diseñadas para obligar a recomprar.",
     predatoryDescription:
       "Rediseños constantes que desorientan al usuario, degradación planificada del rendimiento y muros de suscripción forzosa.",
     artisanMetricLabel: "Longevidad",
@@ -124,11 +124,11 @@ export default function PhilosophySection() {
               CAPÍTULO I • FILOSOFÍA DE OFICIO
             </span>
             <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#1C1917] tracking-tight mt-2">
-              Las Cinco Tesis del Taller
+              Los Cinco Dilemas
             </h2>
             <p className="text-sm sm:text-base text-[#78716C] mt-3 leading-relaxed">
-              Frente a la cultura del consumo voraz y las interfaces hechas para enganchar, 
-              proponemos la calma del artesano: herramientas transparentes, duraderas y respetuosas.
+              Frente a la cultura del consumo voraz y las interfaces hechas para enganchar,
+              proponemos la calma del arte-sano: herramientas transparentes, duraderas y respetuosas.
             </p>
           </div>
 
@@ -143,7 +143,7 @@ export default function PhilosophySection() {
                   : "text-[#78716C] hover:text-[#1C1917]"
               }`}
             >
-              🌿 Mirada de Taller (LSC)
+              🌿 El Arte-sano
             </button>
             <button
               type="button"
@@ -154,7 +154,7 @@ export default function PhilosophySection() {
                   : "text-[#78716C] hover:text-[#991B1B]"
               }`}
             >
-              ⚠️ La Trampa Habitual
+              ⚠️ El Depredador
             </button>
           </div>
         </div>

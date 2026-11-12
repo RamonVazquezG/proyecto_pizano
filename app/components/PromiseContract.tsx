@@ -46,19 +46,19 @@ const PILLARS: Pillar[] = [
     stampClass: "rubber-stamp-amber",
     sealLabel: "TARIFA INMUTABLE",
     manuscriptDetails:
-      "Preaviso vinculante de 90 días naturales ante cualquier modificación de precio. Congelación garantizada de tarifa para los miembros activos.",
+      "Preaviso vinculante de 60 días naturales ante cualquier modificación de precio. Congelación garantizada de tarifa para los miembros activos.",
   },
   {
     id: "salud-mental",
     number: "CLÁUSULA III",
     title: "Calma y Silencio Mental",
     promise:
-      "Diseñamos software que apaga el ruido en vez de multiplicarlo. Cero rachas artificiales (streaks) para provocar ansiedad, cero notificaciones de falso pánico.",
+      "Diseñamos software que apaga el ruido en vez de multiplicarlo. Cero rachas artificiales para provocar ansiedad, cero notificaciones de falso pánico.",
     icon: Heart,
     stampClass: "rubber-stamp-terracotta",
     sealLabel: "PAZ DIGITAL",
     manuscriptDetails:
-      "Diseño bajo el estándar 'Quiet by Default'. Sin contadores en rojo de urgencia artificial ni scroll infinito extractivo.",
+      "Diseño bajo el estándar 'Quiet by Default'. Sin contadores en rojo de urgencia artificial ni scroll infinito.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function PromiseContract() {
     dinero: true,
     "salud-mental": false,
   });
-  const [signatureName, setSignatureName] = useState<string>("Saúl Pizano");
+  const [signatureName, setSignatureName] = useState<string>("Pedro Picapiedra");
   const [showSignedModal, setShowSignedModal] = useState<boolean>(false);
 
   const toggleSign = (id: string) => {
@@ -83,13 +83,13 @@ export default function PromiseContract() {
         {/* Cabecera del Capítulo */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <span className="rubber-stamp rubber-stamp-terracotta">
-            CAPÍTULO III • EL PACTO DE OFICIO
+            CAPÍTULO III • La Promesa
           </span>
           <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#1C1917] tracking-tight">
-            El Pliego de Compromisos Vinculantes
+            El Pacto con el Usuario
           </h2>
           <p className="text-sm sm:text-base text-[#78716C] leading-relaxed">
-            Un pacto formal firmado a puño y letra entre quienes forjan el software 
+            Un pacto formal firmado a puño y letra entre quienes forjan el software
             y las personas que depositan su confianza en él.
           </p>
         </div>

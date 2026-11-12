@@ -30,37 +30,37 @@ const RULES: RuleDefinition[] = [
     id: "regla-1",
     roman: "REGLA I",
     shortTitle: "Trazabilidad de la Herramienta (IA)",
-    fullTitle: "Regla I: Transparencia y Origen Honesto en Contenidos Generados",
+    fullTitle: "Transparencia y Origen Honesto de Contenidos Generados",
     stampClass: "rubber-stamp-forest",
     icon: Sparkles,
     postulado:
       "Todo código, diseño o texto asistido por herramientas algorítmicas debe ser claramente reconocido y trazable. Jamás se disfraza una automatización como trabajo artesanal original.",
     prohibicion:
-      "Prohibido el uso de mezclas opacas que vulneren licencias comunitarias o generen contenido sin procedencia verificada.",
+      "El uso de mezclas opacas que vulneren licencias comunitarias o generen contenido sin procedencia verificada.",
   },
   {
     id: "regla-2",
     roman: "REGLA II",
     shortTitle: "Inviolabilidad del Trato (Anti Rug-Pull)",
-    fullTitle: "Regla II: Los Acuerdos son Permanentes e Invariables",
+    fullTitle: "Los Acuerdos son Permanentes e Invariables",
     stampClass: "rubber-stamp-amber",
     icon: Scale,
     postulado:
       "Ninguna herramienta alterará sus tarifas ni condiciones de manera retroactiva sobre obras o versiones que la comunidad ya tiene en sus manos.",
     prohibicion:
-      "Queda desterrado el cobro sorpresivo por instalación o métricas arbitrarias (como la tasa por descarga). El acuerdo de versión es inviolable.",
+      "El cobro sorpresivo por instalación o métricas arbitrarias (como la tasa por descarga). El acuerdo de versión es inviolable.",
   },
   {
     id: "regla-3",
     roman: "REGLA III",
     shortTitle: "Claridad sin Engaños (Cero Dark Patterns)",
-    fullTitle: "Regla III: Respeto Absoluto a la Voluntad del Usuario",
+    fullTitle: "Respeto Absoluto a la Voluntad del Usuario",
     stampClass: "rubber-stamp-crimson",
     icon: EyeOff,
     postulado:
       "Cerrar la puerta o marcharse de una aplicación debe ser tan sencillo y digno como entrar. El botón de cancelar debe tener la misma visibilidad, sencillez y rapidez que el de aceptar.",
     prohibicion:
-      "Prohibidas las casillas pre-marcadas a traición, los textos manipuladores que intenten dar lástima y los laberintos burocráticos de cancelación.",
+      "Las casillas pre-marcadas a traición, los textos manipuladores que intenten dar lástima y los laberintos burocráticos de cancelación.",
   },
 ];
 
@@ -80,10 +80,10 @@ export default function ManifestoSection() {
               CAPÍTULO II • LAS REGLAS DE OFICIO
             </span>
             <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#1C1917] tracking-tight mt-2">
-              Los Tres Dilemas del Taller
+              Las Tres Reglas de Oro
             </h2>
             <p className="text-sm sm:text-base text-[#78716C] mt-3 leading-relaxed">
-              Cada regla cuenta con su propio instrumento interactivo. Puedes auditar 
+              Cada regla cuenta con su propio instrumento interactivo. Puedes auditar
               en tiempo real cómo se desmontan las malas prácticas de la industria.
             </p>
           </div>
