@@ -1,174 +1,141 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   ArrowDown,
-  Shield,
-  Cpu,
-  Scale,
-  EyeOff,
-  CheckCircle2,
-  Terminal,
+  BookOpen,
+  Feather,
+  Check,
+  Compass,
+  Sparkles,
+  HeartHandshake,
 } from "lucide-react";
 
 export default function HeroSection() {
+  const [signedImpression, setSignedImpression] = useState(false);
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen pt-28 pb-20 flex flex-col justify-between overflow-hidden bg-grid-pattern border-b border-white/[0.08]"
+      className="relative min-h-[92vh] pt-28 pb-16 flex flex-col justify-between overflow-hidden border-b border-[#E7E0D6]"
     >
-      {/* Ambient radial spotlights */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[450px] rounded-full bg-gradient-to-tr from-[#6366F1]/20 via-[#06B6D4]/15 to-transparent blur-[120px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-10 right-10 w-[500px] h-[300px] rounded-full bg-[#10B981]/10 blur-[130px]"
-      />
+      {/* Guía milimétrica decorativa superior */}
+      <div className="ruler-pattern opacity-40 mb-4" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 my-auto">
-        {/* Top Metadata Ribbon */}
-        <div className="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel mb-8">
-          <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono text-[11px] font-semibold tracking-wider uppercase">
-            CÓDIGO LSC MODERNO
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 my-auto">
+        {/* Etiqueta de pliego / Edición */}
+        <div className="flex flex-wrap items-center gap-3 mb-8">
+          <span className="rubber-stamp rubber-stamp-terracotta">
+            MANIFIESTO V2.6 • EDICIÓN IMPRESA
           </span>
-          <span className="text-xs text-[#94A3B8] font-mono">
-            Manifiesto Interactivo de Ética Tecnológica
-          </span>
-          <span className="text-white/20">•</span>
-          <span className="text-xs text-emerald-400 font-mono flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5" /> Estándar Verificable
+          <span className="text-xs text-[#78716C] font-mono flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2E5A44]" />
+            Tipografía Newsreader • Papel 120g
           </span>
         </div>
 
-        {/* Impact Editorial Heading */}
-        <div className="max-w-4xl">
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#F8FAFC] leading-[1.06] mb-6">
-            El software como{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6366F1] via-[#06B6D4] to-[#10B981]">
-              herramienta humana
+        {/* Gran Título Editorial */}
+        <div className="space-y-6">
+          <h1 className="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#1C1917] leading-[1.08]">
+            El software concebido como{" "}
+            <span className="italic underline decoration-[#C85A32]/40 decoration-wavy decoration-2 text-[#C85A32]">
+              oficio humano
             </span>
-            , no como trampa financiera.
+            , nunca como trampa extractiva.
           </h1>
 
-          {/* Core Philosophical Quote */}
-          <blockquote className="my-8 pl-5 border-l-2 border-indigo-500/60 text-lg sm:text-xl text-[#94A3B8] italic leading-relaxed max-w-3xl">
-            &ldquo;Hacer dinero es una consecuencia de construir valor sostenido; hacer buen
-            software es un deber moral con quien deposita su tiempo, sus recursos y su
-            confianza en nuestro código.&rdquo;
-          </blockquote>
+          {/* Cita en pergamino */}
+          <div className="paper-sheet-cream p-6 sm:p-8 rounded-xl border border-[#D6CBC0] relative mt-8">
+            <div className="absolute -top-3.5 left-6 px-3 py-0.5 bg-[#F5EFEB] border border-[#D6CBC0] text-[11px] font-mono text-[#78716C] uppercase tracking-wider rounded">
+              Axioma de Taller
+            </div>
+            <blockquote className="font-editorial text-xl sm:text-2xl text-[#44403C] italic leading-relaxed">
+              &ldquo;Hacer dinero es una consecuencia natural de construir valor sostenido; 
+              hacer buen software es un deber moral con quien deposita su tiempo, sus recursos 
+              y su confianza en nuestras manos.&rdquo;
+            </blockquote>
+            <div className="mt-4 flex items-center justify-between text-xs font-mono text-[#78716C] pt-4 border-t border-[#E7E0D6]">
+              <span>— Cuaderno de Ingeniería Humana, 2026</span>
+              <span className="hidden sm:inline">Tratado de Oficio No. 01</span>
+            </div>
+          </div>
         </div>
 
-        {/* Action Buttons & Quick Jump */}
-        <div className="flex flex-wrap items-center gap-4 mt-8">
+        {/* Acciones e Interacción táctil de Sello */}
+        <div className="flex flex-wrap items-center gap-4 mt-10">
           <a
             href="#filosofia"
-            className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-[#F8FAFC] text-[#090A0F] font-semibold text-sm hover:bg-indigo-50 editorial-transition shadow-lg shadow-indigo-500/10"
+            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#292524] text-[#FDFBF7] font-medium text-sm hover:bg-[#1C1917] transition-all shadow-md shadow-stone-900/10 active:translate-y-0.5"
           >
-            <span>Explorar el Manifiesto</span>
+            <BookOpen className="w-4 h-4 text-[#F5EFEB]" />
+            <span>Leer el Manifiesto de Taller</span>
             <ArrowDown className="w-4 h-4" />
           </a>
 
-          <a
-            href="#codigo-lsc"
-            className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl glass-panel glass-panel-hover text-[#F8FAFC] font-mono text-xs sm:text-sm"
+          <button
+            type="button"
+            onClick={() => setSignedImpression(!signedImpression)}
+            className={`inline-flex items-center gap-2 px-5 py-3 rounded-lg border text-xs sm:text-sm font-medium transition-all cursor-pointer ${
+              signedImpression
+                ? "bg-[#2E5A44]/10 border-[#2E5A44] text-[#2E5A44]"
+                : "bg-white border-[#D6CBC0] text-[#57534E] hover:border-[#C85A32] hover:text-[#C85A32] shadow-sm"
+            }`}
           >
-            <Terminal className="w-4 h-4 text-cyan-400" />
-            <span>Auditar los 3 Dilemas Interactivos</span>
-          </a>
-
-          <a
-            href="#crisis"
-            className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-300 font-mono text-xs hover:bg-amber-500/20 editorial-transition"
-          >
-            <span>Simulador de Crisis en Vivo →</span>
-          </a>
+            {signedImpression ? (
+              <>
+                <Check className="w-4 h-4 text-[#2E5A44]" />
+                <span className="font-mono">Pliego Sellado por el Lector</span>
+              </>
+            ) : (
+              <>
+                <Feather className="w-4 h-4 text-[#C85A32]" />
+                <span>Estampar Sello de Aprobación</span>
+              </>
+            )}
+          </button>
         </div>
 
-        {/* 4 Semantic Pillars Preview Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
-          <a
-            href="#codigo-lsc"
-            className="glass-panel glass-panel-hover p-5 rounded-2xl flex flex-col justify-between group"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-2.5 py-1 rounded-md border border-indigo-500/20">
-                DILEMA 01 // IA
-              </span>
-              <Cpu className="w-5 h-5 text-indigo-400 group-hover:scale-110 editorial-transition" />
+        {/* Puntos de Confort Humano */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-12 mt-12 border-t border-[#E7E0D6]">
+          <div className="flex items-start gap-3">
+            <div className="w-7 h-7 rounded bg-[#F5EFEB] border border-[#D6CBC0] flex items-center justify-center text-[#C85A32] shrink-0 font-serif font-bold text-sm">
+              I
             </div>
             <div>
-              <h2 className="text-base font-semibold text-[#F8FAFC] mb-1">
-                Trazabilidad en IA Generativa
-              </h2>
-              <p className="text-xs text-[#94A3B8] leading-relaxed">
-                Auditoría Split-Diff de código autogenerado, atribución de licencias GPL y huella energética en Wh.
+              <p className="text-sm font-semibold text-[#1C1917]">Sin Pistas Falsas</p>
+              <p className="text-xs text-[#78716C] mt-0.5">
+                Cero trampas visuales, botones engañosos ni letra ilegible.
               </p>
             </div>
-          </a>
+          </div>
 
-          <a
-            href="#codigo-lsc"
-            className="glass-panel glass-panel-hover p-5 rounded-2xl flex flex-col justify-between group"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
-                DILEMA 02 // RUG-PULL
-              </span>
-              <Scale className="w-5 h-5 text-amber-400 group-hover:scale-110 editorial-transition" />
+          <div className="flex items-start gap-3">
+            <div className="w-7 h-7 rounded bg-[#F5EFEB] border border-[#D6CBC0] flex items-center justify-center text-[#2E5A44] shrink-0 font-serif font-bold text-sm">
+              II
             </div>
             <div>
-              <h2 className="text-base font-semibold text-[#F8FAFC] mb-1">
-                Inmutabilidad Contractual
-              </h2>
-              <p className="text-xs text-[#94A3B8] leading-relaxed">
-                Protección criptográfica contra tarifas retroactivas por descarga o cambios unilaterales de licencia.
+              <p className="text-sm font-semibold text-[#1C1917]">Inmutabilidad de Palabra</p>
+              <p className="text-xs text-[#78716C] mt-0.5">
+                Los acuerdos se respetan. Sin cambios arbitrarios a traición.
               </p>
             </div>
-          </a>
+          </div>
 
-          <a
-            href="#codigo-lsc"
-            className="glass-panel glass-panel-hover p-5 rounded-2xl flex flex-col justify-between group"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-red-400 bg-red-500/10 px-2.5 py-1 rounded-md border border-red-500/20">
-                DILEMA 03 // UI TRAPS
-              </span>
-              <EyeOff className="w-5 h-5 text-red-400 group-hover:scale-110 editorial-transition" />
+          <div className="flex items-start gap-3">
+            <div className="w-7 h-7 rounded bg-[#F5EFEB] border border-[#D6CBC0] flex items-center justify-center text-[#B45309] shrink-0 font-serif font-bold text-sm">
+              III
             </div>
             <div>
-              <h2 className="text-base font-semibold text-[#F8FAFC] mb-1">
-                Erradicación de Dark Patterns
-              </h2>
-              <p className="text-xs text-[#94A3B8] leading-relaxed">
-                Simetría visual absoluta, cero confirmshaming y arquitectura de cancelación en 1 solo paso.
+              <p className="text-sm font-semibold text-[#1C1917]">Paz y Espacio Propio</p>
+              <p className="text-xs text-[#78716C] mt-0.5">
+                Sin notificaciones que generen culpa ni ruido dopaminérgico.
               </p>
             </div>
-          </a>
-
-          <a
-            href="#promesa"
-            className="glass-panel glass-panel-hover p-5 rounded-2xl flex flex-col justify-between group"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
-                GARANTÍA // LSC
-              </span>
-              <Shield className="w-5 h-5 text-emerald-400 group-hover:scale-110 editorial-transition" />
-            </div>
-            <div>
-              <h2 className="text-base font-semibold text-[#F8FAFC] mb-1">
-                Contrato Visual y Crisis
-              </h2>
-              <p className="text-xs text-[#94A3B8] leading-relaxed">
-                3 garantías vinculantes para el usuario y protocolo de respuesta operativa en tiempo real.
-              </p>
-            </div>
-          </a>
+          </div>
         </div>
       </div>
+
+      <div className="ruler-pattern opacity-40 mt-8" />
     </section>
   );
 }

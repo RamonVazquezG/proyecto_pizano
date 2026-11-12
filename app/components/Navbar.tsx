@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ShieldCheck, Terminal, Activity, Compass, Lock, AlertTriangle } from "lucide-react";
+import { Compass, BookOpen, Feather, Scale, AlertCircle, BookmarkCheck } from "lucide-react";
 
 const NAV_ITEMS = [
   { id: "hero", label: "Portada", icon: Compass },
-  { id: "filosofia", label: "1. Filosofía", icon: ShieldCheck },
-  { id: "codigo-lsc", label: "2. Código LSC", icon: Terminal },
-  { id: "promesa", label: "3. La Promesa", icon: Lock },
-  { id: "crisis", label: "4. Plan de Crisis", icon: AlertTriangle },
+  { id: "filosofia", label: "I. Filosofía de Taller", icon: BookOpen },
+  { id: "codigo-lsc", label: "II. Las 3 Reglas Vivas", icon: Scale },
+  { id: "promesa", label: "III. El Pacto Firmado", icon: Feather },
+  { id: "crisis", label: "IV. Protocolo de Taller", icon: AlertCircle },
 ];
 
 export default function Navbar() {
@@ -22,7 +22,7 @@ export default function Navbar() {
       setScrollProgress(Math.min(100, Math.max(0, currentProgress)));
 
       const sections = NAV_ITEMS.map((item) => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 240;
+      const scrollPosition = window.scrollY + 220;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -39,35 +39,36 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/[0.08]">
-      {/* Reading progress bar */}
-      <div className="h-[2px] w-full bg-white/[0.04] overflow-hidden">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-[#E7E0D6] transition-all">
+      {/* Marcador de lectura como hilo de encuadernación */}
+      <div className="h-[3px] w-full bg-[#E7E0D6] overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-[#6366F1] via-[#06B6D4] to-[#10B981] transition-all duration-150"
+          className="h-full bg-[#C85A32] transition-all duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        {/* Cabecera / Ex Libris */}
         <a
           href="#hero"
           className="flex items-center gap-3 group focus:outline-none"
         >
-          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500/20 editorial-transition">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="w-9 h-9 rounded-md bg-[#F5EFEB] border border-[#D6CBC0] flex items-center justify-center text-[#C85A32] shadow-sm group-hover:border-[#C85A32] transition-colors">
+            <Feather className="w-4 h-4" />
           </div>
           <div className="flex flex-col">
-            <span className="font-mono text-xs tracking-widest uppercase text-indigo-400 font-semibold">
-              LSC // MANIFIESTO v2.6
+            <span className="font-serif text-sm tracking-wide font-bold text-[#1C1917]">
+              Código LSC
             </span>
-            <span className="text-xs text-[#94A3B8] hidden sm:inline">
-              Ética Tecnológica Aplicada
+            <span className="text-[11px] text-[#78716C] font-mono hidden sm:inline">
+              Edición de Taller • Ética Humana
             </span>
           </div>
         </a>
 
-        {/* Navigation Links */}
-        <nav aria-label="Navegación de secciones" className="hidden md:flex items-center gap-1 bg-white/[0.02] p-1 rounded-xl border border-white/[0.06]">
+        {/* Navegación por capítulos */}
+        <nav aria-label="Índice de capítulos" className="hidden md:flex items-center gap-1 bg-[#F5EFEB] p-1 rounded-lg border border-[#E7E0D6]">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = activeSection === item.id;
@@ -75,50 +76,29 @@ export default function Navbar() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium editorial-transition ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                   isActive
-                    ? "bg-white/[0.09] text-[#F8FAFC] shadow-sm border border-white/[0.1]"
-                    : "text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-white/[0.04]"
+                    ? "bg-[#FFFFFF] text-[#1C1917] shadow-sm border border-[#D6CBC0] font-semibold"
+                    : "text-[#78716C] hover:text-[#1C1917] hover:bg-[#FFFFFF]/60"
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-indigo-400" : "text-slate-500"}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#C85A32]" : "text-[#A8A29E]"}`} />
                 <span>{item.label}</span>
               </a>
             );
           })}
         </nav>
 
-        {/* Live Telemetry Indicator */}
+        {/* Sello de verificación en vivo */}
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[11px]">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>AUDITORÍA ACTIVA</span>
+          <div className="hidden sm:inline-flex items-center gap-1.5 rubber-stamp rubber-stamp-forest">
+            <BookmarkCheck className="w-3.5 h-3.5" />
+            <span>PLIEGO VERIFICADO</span>
           </div>
-          <div className="font-mono text-xs text-[#94A3B8] bg-white/[0.03] px-2.5 py-1 rounded-md border border-white/[0.06] tabular-nums">
-            <Activity className="w-3 h-3 inline mr-1 text-cyan-400" />
-            {Math.round(scrollProgress)}%
+          <div className="font-mono text-xs text-[#78716C] bg-[#F5EFEB] px-2.5 py-1 rounded border border-[#E7E0D6] tabular-nums">
+            Pág. {Math.round(scrollProgress)}%
           </div>
         </div>
-      </div>
-
-      {/* Mobile section selector bar */}
-      <div className="md:hidden flex items-center gap-1 overflow-x-auto px-4 py-1.5 border-t border-white/[0.05] bg-[#090A0F]/90 no-scrollbar">
-        {NAV_ITEMS.map((item) => {
-          const isActive = activeSection === item.id;
-          return (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className={`shrink-0 px-2.5 py-1 rounded-md text-[11px] font-mono editorial-transition ${
-                isActive
-                  ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
-                  : "text-[#94A3B8]"
-              }`}
-            >
-              {item.label}
-            </a>
-          );
-        })}
       </div>
     </header>
   );

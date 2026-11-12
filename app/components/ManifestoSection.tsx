@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import {
-  Cpu,
+  Sparkles,
   Scale,
   EyeOff,
-  CheckCircle2,
-  Ban,
-  Layers,
+  Feather,
+  CheckCircle,
+  AlertTriangle,
+  FileCheck,
 } from "lucide-react";
 import AiAuditTool from "./AiAuditTool";
 import FeeSimulator from "./FeeSimulator";
@@ -15,11 +16,10 @@ import DarkPatternDeobfuscator from "./DarkPatternDeobfuscator";
 
 interface RuleDefinition {
   id: "regla-1" | "regla-2" | "regla-3";
-  number: string;
+  roman: string;
   shortTitle: string;
   fullTitle: string;
-  badgeColor: string;
-  borderColor: string;
+  stampClass: string;
   icon: React.ElementType;
   postulado: string;
   prohibicion: string;
@@ -28,160 +28,152 @@ interface RuleDefinition {
 const RULES: RuleDefinition[] = [
   {
     id: "regla-1",
-    number: "REGLA 01",
-    shortTitle: "Transparencia y Atribución en IA Generativa",
-    fullTitle: "Regla 1: Transparencia Obligatoria y Trazabilidad en IA Generativa",
-    badgeColor: "text-indigo-300 bg-indigo-500/15 border-indigo-500/30",
-    borderColor: "border-indigo-500/30",
-    icon: Cpu,
+    roman: "REGLA I",
+    shortTitle: "Trazabilidad de la Herramienta (IA)",
+    fullTitle: "Regla I: Transparencia y Origen Honesto en Contenidos Generados",
+    stampClass: "rubber-stamp-forest",
+    icon: Sparkles,
     postulado:
-      "Todo contenido, código o decisión generado o sugerido por modelos de inteligencia artificial debe ser explícitamente auditable, rotulado y sujeto a consentimiento expreso.",
+      "Todo código, diseño o texto asistido por herramientas algorítmicas debe ser claramente reconocido y trazable. Jamás se disfraza una automatización como trabajo artesanal original.",
     prohibicion:
-      "Prohibido el uso de pipelines generativos opacos que mezclen código propietario de terceros sin atribución o que desplieguen modelos entrenados con material obtenido sin licencia.",
+      "Prohibido el uso de mezclas opacas que vulneren licencias comunitarias o generen contenido sin procedencia verificada.",
   },
   {
     id: "regla-2",
-    number: "REGLA 02",
-    shortTitle: "Inmutabilidad Contractual y Anti Rug-Pull",
-    fullTitle: "Regla 2: Inviolabilidad Contractual y Protección Anti Rug-Pull",
-    badgeColor: "text-amber-300 bg-amber-500/15 border-amber-500/30",
-    borderColor: "border-amber-500/30",
+    roman: "REGLA II",
+    shortTitle: "Inviolabilidad del Trato (Anti Rug-Pull)",
+    fullTitle: "Regla II: Los Acuerdos son Permanentes e Invariables",
+    stampClass: "rubber-stamp-amber",
     icon: Scale,
     postulado:
-      "Ningún producto o servicio modificará sus esquemas tarifarios, de monetización o de uso de forma retroactiva sobre versiones de software previamente instaladas o publicadas.",
+      "Ninguna herramienta alterará sus tarifas ni condiciones de manera retroactiva sobre obras o versiones que la comunidad ya tiene en sus manos.",
     prohibicion:
-      "Queda erradicada cualquier tarifa por instalación o cobro derivado de métricas no auditables (como el caso de la tasa por descarga de Unity). Los contratos de versión son inmutables.",
+      "Queda desterrado el cobro sorpresivo por instalación o métricas arbitrarias (como la tasa por descarga). El acuerdo de versión es inviolable.",
   },
   {
     id: "regla-3",
-    number: "REGLA 03",
-    shortTitle: "Autonomía Radical y Cero Dark Patterns",
-    fullTitle: "Regla 3: Autonomía Cognitiva y Erradicación Total de Dark Patterns",
-    badgeColor: "text-red-300 bg-red-500/15 border-red-500/30",
-    borderColor: "border-red-500/30",
+    roman: "REGLA III",
+    shortTitle: "Claridad sin Engaños (Cero Dark Patterns)",
+    fullTitle: "Regla III: Respeto Absoluto a la Voluntad del Usuario",
+    stampClass: "rubber-stamp-crimson",
     icon: EyeOff,
     postulado:
-      "El consentimiento del usuario solo es válido si es explícito, informado y simétrico. La acción de rechazar, cancelar o eliminar un servicio debe requerir el mismo número exacto de clics y el mismo peso visual que la de aceptar o suscribirse.",
+      "Cerrar la puerta o marcharse de una aplicación debe ser tan sencillo y digno como entrar. El botón de cancelar debe tener la misma visibilidad, sencillez y rapidez que el de aceptar.",
     prohibicion:
-      "Cero casillas preseleccionadas, cero lenguaje culpígeno (confirmshaming) y cero rutas laberínticas de retención.",
+      "Prohibidas las casillas pre-marcadas a traición, los textos manipuladores que intenten dar lástima y los laberintos burocráticos de cancelación.",
   },
 ];
 
 export default function ManifestoSection() {
-  const [activeTab, setActiveTab] = useState<"regla-1" | "regla-2" | "regla-3" | "all">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "regla-1" | "regla-2" | "regla-3">("all");
 
   const visibleRules =
     activeTab === "all" ? RULES : RULES.filter((r) => r.id === activeTab);
 
   return (
-    <section
-      id="codigo-lsc"
-      className="py-24 relative border-b border-white/[0.08]"
-    >
+    <section id="codigo-lsc" className="py-24 border-b border-[#E7E0D6] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-cyan-400 mb-3">
-              <span>02 // EL CÓDIGO LSC MODERNO</span>
-              <span className="text-white/20">—</span>
-              <span>LAS 3 REGLAS DE ORO Y LABORATORIO INTERACTIVO</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-4">
-              Tres dilemas contemporáneos resueltos con arquitectura ética
+        {/* Cabecera del Capítulo */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-[#E7E0D6]">
+          <div className="max-w-2xl">
+            <span className="rubber-stamp rubber-stamp-terracotta mb-3">
+              CAPÍTULO II • LAS REGLAS DE OFICIO
+            </span>
+            <h2 className="font-editorial text-3xl sm:text-5xl font-normal text-[#1C1917] tracking-tight mt-2">
+              Los Tres Dilemas del Taller
             </h2>
-            <p className="text-[#94A3B8] text-base leading-relaxed">
-              Cada regla del Código LSC establece un postulado vinculante, una prohibición
-              estricta y un mecanismo técnico interactivo que puedes auditar ahora mismo.
+            <p className="text-sm sm:text-base text-[#78716C] mt-3 leading-relaxed">
+              Cada regla cuenta con su propio instrumento interactivo. Puedes auditar 
+              en tiempo real cómo se desmontan las malas prácticas de la industria.
             </p>
           </div>
 
-          {/* Interactive Filter Tabs */}
-          <div className="glass-panel p-1.5 rounded-xl flex flex-wrap items-center gap-1 self-start">
+          {/* Filtro de Reglas */}
+          <div className="flex flex-wrap gap-2 self-start">
             <button
               type="button"
               onClick={() => setActiveTab("all")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 editorial-transition cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-md text-xs font-serif font-bold transition-all cursor-pointer ${
                 activeTab === "all"
-                  ? "bg-white/[0.12] text-[#F8FAFC] border border-white/[0.2]"
-                  : "text-[#94A3B8] hover:text-white"
+                  ? "bg-[#292524] text-white shadow-sm"
+                  : "bg-white text-[#78716C] border border-[#D6CBC0] hover:text-[#1C1917]"
               }`}
             >
-              <Layers className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Ver las 3 Reglas</span>
+              Las 3 Reglas
             </button>
-            {RULES.map((rule) => {
-              const Icon = rule.icon;
-              return (
-                <button
-                  key={rule.id}
-                  type="button"
-                  onClick={() => setActiveTab(rule.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 editorial-transition cursor-pointer ${
-                    activeTab === rule.id
-                      ? "bg-indigo-500/20 text-indigo-200 border border-indigo-500/40"
-                      : "text-[#94A3B8] hover:text-white"
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{rule.number}</span>
-                </button>
-              );
-            })}
+            {RULES.map((r) => (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => setActiveTab(r.id)}
+                className={`px-3.5 py-1.5 rounded-md text-xs font-serif font-bold transition-all cursor-pointer ${
+                  activeTab === r.id
+                    ? "bg-[#C85A32] text-white shadow-sm"
+                    : "bg-white text-[#78716C] border border-[#D6CBC0] hover:text-[#1C1917]"
+                }`}
+              >
+                {r.roman}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Rules List + Interactive Laboratories */}
+        {/* Listado de Reglas con sus Herramientas */}
         <div className="space-y-16">
           {visibleRules.map((rule) => {
             const Icon = rule.icon;
             return (
-              <div key={rule.id} className="space-y-6">
-                {/* Postulado & Prohibicion Header Card */}
-                <div className={`glass-panel rounded-2xl p-6 sm:p-8 border ${rule.borderColor}`}>
-                  <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={`px-3 py-1 rounded-lg font-mono text-xs font-semibold border ${rule.badgeColor}`}
-                      >
-                        {rule.number}
+              <div
+                key={rule.id}
+                id={rule.id}
+                className="paper-sheet p-6 sm:p-10 rounded-xl relative space-y-8"
+              >
+                {/* Encabezado del Pliego */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E7E0D6]">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[#F5EFEB] border border-[#D6CBC0] flex items-center justify-center text-[#C85A32]">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className={`rubber-stamp ${rule.stampClass}`}>
+                        {rule.roman}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#F8FAFC]">
+                      <h3 className="font-editorial text-2xl sm:text-3xl font-normal text-[#1C1917] mt-1">
                         {rule.fullTitle}
                       </h3>
-                    </div>
-                    <Icon className="w-6 h-6 text-[#94A3B8]" />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {/* Postulado */}
-                    <div className="p-5 rounded-xl bg-emerald-500/[0.06] border border-emerald-500/20">
-                      <div className="flex items-center gap-2 font-mono text-xs uppercase text-emerald-400 font-semibold mb-2">
-                        <CheckCircle2 className="w-4 h-4" />
-                        <span>POSTULADO VINCULANTE</span>
-                      </div>
-                      <p className="text-sm sm:text-base text-[#F8FAFC] leading-relaxed">
-                        {rule.postulado}
-                      </p>
-                    </div>
-
-                    {/* Prohibicion */}
-                    <div className="p-5 rounded-xl bg-red-500/[0.06] border border-red-500/20">
-                      <div className="flex items-center gap-2 font-mono text-xs uppercase text-red-400 font-semibold mb-2">
-                        <Ban className="w-4 h-4" />
-                        <span>PROHIBICIÓN ESTRICTA</span>
-                      </div>
-                      <p className="text-sm sm:text-base text-[#F8FAFC]/90 leading-relaxed">
-                        {rule.prohibicion}
-                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Corresponding Interactive Component */}
-                {rule.id === "regla-1" && <AiAuditTool />}
-                {rule.id === "regla-2" && <FeeSimulator />}
-                {rule.id === "regla-3" && <DarkPatternDeobfuscator />}
+                {/* Contraste: Postulado de Oficio vs Prohibición */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="p-5 rounded-lg bg-[#FDFBF7] border border-[#E7E0D6]">
+                    <div className="flex items-center gap-2 text-xs font-serif font-bold text-[#2E5A44] mb-2 uppercase tracking-wider">
+                      <CheckCircle className="w-4 h-4" />
+                      El Compromiso Ético
+                    </div>
+                    <p className="text-sm text-[#44403C] leading-relaxed">
+                      {rule.postulado}
+                    </p>
+                  </div>
+
+                  <div className="p-5 rounded-lg bg-[#FFF5F5] border border-[#991B1B]/20">
+                    <div className="flex items-center gap-2 text-xs font-serif font-bold text-[#991B1B] mb-2 uppercase tracking-wider">
+                      <AlertTriangle className="w-4 h-4" />
+                      Práctica Desterrada
+                    </div>
+                    <p className="text-sm text-[#7F1D1D] leading-relaxed">
+                      {rule.prohibicion}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Herramienta Táctil Asociada */}
+                <div className="pt-4 border-t border-[#E7E0D6]">
+                  {rule.id === "regla-1" && <AiAuditTool />}
+                  {rule.id === "regla-2" && <FeeSimulator />}
+                  {rule.id === "regla-3" && <DarkPatternDeobfuscator />}
+                </div>
               </div>
             );
           })}

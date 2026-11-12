@@ -2,13 +2,14 @@
 
 import React, { useState } from "react";
 import {
-  Cpu,
+  FileCode,
+  Sparkles,
   Zap,
-  Scale,
-  Terminal,
+  CheckCircle,
   Eye,
-  ShieldCheck,
-  MoveHorizontal,
+  Sliders,
+  Layers,
+  Leaf,
 } from "lucide-react";
 
 interface CodeLine {
@@ -53,12 +54,12 @@ const CODE_SAMPLE: CodeLine[] = [
   },
   {
     lineNumber: 8,
-    code: "  // [BLOQUE SINTETIZADO POR MODELO GENERATIVO]",
+    code: "  // [APUNTE DE TALLER: Fragmento asistido por modelo algorítmico]",
     isAiGenerated: true,
-    aiTag: "LLM-GEN // Claude-Sonnet-LSC-Audited",
+    aiTag: "Asistido // Claude-3.5-Sonnet (Revisado manualmente)",
     originPrompt:
-      "Prompt: 'Genera un filtro diferencial de anonimización k-anonymity sin retener IPs en memoria'",
-    energyWh: "0.42 Wh (Inferencia medida)",
+      "Anotación: 'Genera un filtro diferencial de anonimización k-anonymity sin retener IPs en memoria'",
+    energyWh: "0.42 Wh (Huella eléctrica auditada)",
     licenseDetected: "GPL-3.0 Compatible (Atribución: @open-privacy/k-anon v2.1)",
     licenseCompliant: true,
   },
@@ -84,7 +85,7 @@ const CODE_SAMPLE: CodeLine[] = [
   },
   {
     lineNumber: 13,
-    code: "  return { status: 'COMMITTED_WITH_ATTRIBUTION', payload: anonymizedDigest };",
+    code: "  return { status: 'OK', records: anonymizedDigest.length };",
   },
   {
     lineNumber: 14,
@@ -93,249 +94,150 @@ const CODE_SAMPLE: CodeLine[] = [
 ];
 
 export default function AiAuditTool() {
-  const [splitPercent, setSplitPercent] = useState<number>(68);
-  const [consentGranted, setConsentGranted] = useState<boolean>(true);
-
-  const auditLevel =
-    splitPercent < 30
-      ? "OPACO (Riesgo de Infracción)"
-      : splitPercent < 75
-      ? "INSPECCIÓN PARCIAL"
-      : "AUDITORÍA LSC COMPLETA";
+  const [sliderPosition, setSliderPosition] = useState<number>(50);
+  const [selectedAiLine, setSelectedAiLine] = useState<CodeLine | null>(CODE_SAMPLE[7]);
 
   return (
-    <div className="glass-panel rounded-2xl p-6 sm:p-8 border border-indigo-500/25 relative overflow-hidden">
-      {/* Top Semantic Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 font-mono text-xs mb-2">
-            <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-            <span>MECANISMO INTERACTIVO 01 // EL AUDITOR DE CÓDIGO IA</span>
-          </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-[#F8FAFC]">
-            Split-Diff: Producción Opaca vs. Trazabilidad LSC
-          </h3>
-          <p className="text-sm text-[#94A3B8] mt-1">
-            Desliza el control para revelar los bloques generados por IA, su prompt de
-            origen, su costo energético en vatios-hora y las licencias GPL detectadas en el
-            corpus.
+          <span className="rubber-stamp rubber-stamp-forest mb-2">
+            INSTRUMENTO DE TALLER 01 • CUADERNO DE TRAZABILIDAD
+          </span>
+          <h4 className="font-editorial text-xl font-normal text-[#1C1917]">
+            Lupa de Atribución: Código de Autor vs. Código Asistido
+          </h4>
+          <p className="text-xs text-[#78716C] mt-1 max-w-2xl">
+            Desliza el visor para revelar con honestidad qué líneas fueron escritas a mano
+            y cuáles requirieron asistencia algorítmica, incluyendo su huella energética y licencia.
           </p>
         </div>
 
-        {/* Preset Quick Buttons */}
-        <div className="flex flex-wrap items-center gap-2 self-start">
-          <button
-            type="button"
-            onClick={() => setSplitPercent(0)}
-            className={`px-3 py-1.5 rounded-lg font-mono text-xs border editorial-transition cursor-pointer ${
-              splitPercent === 0
-                ? "bg-slate-800 text-white border-white/30"
-                : "bg-white/[0.03] text-[#94A3B8] border-white/[0.08] hover:text-white"
-            }`}
-          >
-            0% Opaco
-          </button>
-          <button
-            type="button"
-            onClick={() => setSplitPercent(50)}
-            className={`px-3 py-1.5 rounded-lg font-mono text-xs border editorial-transition cursor-pointer ${
-              splitPercent === 50
-                ? "bg-indigo-500/20 text-indigo-300 border-indigo-500/40"
-                : "bg-white/[0.03] text-[#94A3B8] border-white/[0.08] hover:text-white"
-            }`}
-          >
-            50% Split-Diff
-          </button>
-          <button
-            type="button"
-            onClick={() => setSplitPercent(100)}
-            className={`px-3 py-1.5 rounded-lg font-mono text-xs border editorial-transition cursor-pointer ${
-              splitPercent === 100
-                ? "bg-cyan-500/20 text-cyan-300 border-cyan-500/40"
-                : "bg-white/[0.03] text-[#94A3B8] border-white/[0.08] hover:text-white"
-            }`}
-          >
-            100% Auditoría LSC
-          </button>
-        </div>
-      </div>
-
-      {/* Interactive Range Control Bar */}
-      <div className="my-6 bg-[#090A0F]/90 p-4 rounded-xl border border-white/[0.08]">
-        <div className="flex items-center justify-between text-xs font-mono mb-2">
-          <span className="text-[#94A3B8] flex items-center gap-1.5">
-            <Eye className="w-3.5 h-3.5 text-slate-400" />
-            Lado Izquierdo: Modo Producción Opaco
-          </span>
-          <span className="text-cyan-400 font-semibold">
-            Nivel de Escaneo: {splitPercent}% ({auditLevel})
-          </span>
-          <span className="text-indigo-400 flex items-center gap-1.5">
-            Lado Derecho: Modo Auditoría LSC
-            <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
-          </span>
-        </div>
-
-        <div className="relative flex items-center">
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={splitPercent}
-            onChange={(e) => setSplitPercent(Number(e.target.value))}
-            aria-label="Porcentaje de revelación de auditoría de IA"
-            className="w-full split-slider z-20"
-          />
-          <div className="pointer-events-none absolute inset-0 h-2 my-auto rounded-full bg-slate-800 overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-[#6366F1] to-[#06B6D4]"
-              style={{ width: `${splitPercent}%` }}
-            />
+        {/* Métrica de Energía */}
+        <div className="flex items-center gap-2 bg-[#F5EFEB] border border-[#D6CBC0] px-3.5 py-2 rounded-lg self-start">
+          <Leaf className="w-4 h-4 text-[#2E5A44]" />
+          <div className="text-xs font-mono">
+            <span className="text-[#78716C] block text-[10px]">COSTE ENERGÉTICO TOTAL</span>
+            <span className="text-[#2E5A44] font-bold">0.42 Wh • Compensado</span>
           </div>
         </div>
       </div>
 
-      {/* Dual-Channel Code Inspector */}
-      <div className="relative rounded-xl border border-white/[0.1] bg-[#06070B] overflow-hidden font-mono text-xs sm:text-sm">
-        {/* Editor Top Bar */}
-        <div className="flex items-center justify-between px-4 py-2.5 bg-white/[0.03] border-b border-white/[0.07]">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/60" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/60" />
-            <span className="ml-2 text-xs text-[#94A3B8]">
-              src/telemetry/analytics-pipeline.ts
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] text-indigo-300 bg-indigo-500/15 px-2 py-0.5 rounded border border-indigo-500/30">
-              LSC-AI-TRACE v2.4
-            </span>
-          </div>
+      {/* Control Deslizante Táctil de Taller */}
+      <div className="paper-sheet-cream p-4 rounded-lg space-y-2 border border-[#D6CBC0]">
+        <div className="flex justify-between items-center text-xs font-mono text-[#78716C]">
+          <span className="flex items-center gap-1.5 font-serif font-bold text-[#1C1917]">
+            🖋️ Manuscrito Original (0%)
+          </span>
+          <span className="bg-white px-2 py-0.5 rounded border border-[#D6CBC0] font-bold text-[#C85A32]">
+            Visor al {sliderPosition}%
+          </span>
+          <span className="flex items-center gap-1.5 font-serif font-bold text-[#2E5A44]">
+            🔍 Revelado Total de Atribución (100%)
+          </span>
         </div>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={sliderPosition}
+          onChange={(e) => setSliderPosition(Number(e.target.value))}
+          className="w-full workshop-slider cursor-pointer"
+        />
+      </div>
 
-        {/* Split-Diff Viewport */}
-        <div className="relative p-4 sm:p-6 overflow-x-auto">
-          {/* Visual Split Divider Line */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute top-0 bottom-0 z-10 border-r-2 border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.8)] transition-all duration-75"
-            style={{ left: `${splitPercent}%` }}
-          >
-            <div className="sticky top-1/2 -translate-y-1/2 -translate-x-1/2 w-7 h-7 rounded-full bg-[#090A0F] border-2 border-cyan-400 flex items-center justify-center text-cyan-300 shadow-lg">
-              <MoveHorizontal className="w-3.5 h-3.5" />
-            </div>
+      {/* Visor de Pliego de Código y Ficha Técnica */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Editor con aspecto de hoja técnica de imprenta */}
+        <div className="lg:col-span-7 bg-[#292524] text-[#F5EFEB] rounded-xl p-4 sm:p-5 font-mono text-xs overflow-x-auto shadow-inner border border-[#1C1917]">
+          <div className="flex items-center justify-between pb-3 mb-3 border-b border-stone-700 text-[11px] text-stone-400">
+            <span>archivo: lib/telemetry/anonymizer.ts</span>
+            <span className="text-amber-400">TypeScript 5.x</span>
           </div>
 
-          <div className="space-y-1.5 min-w-[620px]">
+          <div className="space-y-1">
             {CODE_SAMPLE.map((line) => {
-              const showAuditHighlight = line.isAiGenerated && splitPercent >= 25;
-
+              const showAiHighlight = line.isAiGenerated && sliderPosition > 25;
               return (
-                <div key={line.lineNumber} className="relative">
-                  {/* Metadata Callout Banner above line 8 when audited */}
-                  {line.originPrompt && splitPercent >= 35 && (
-                    <div
-                      className="mb-2 p-3 rounded-lg bg-indigo-950/70 border border-indigo-500/50 text-xs transition-all duration-200"
-                      style={{
-                        opacity: Math.min(1, (splitPercent - 25) / 50),
-                      }}
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                        <span className="font-semibold text-indigo-300 flex items-center gap-1.5">
-                          <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-                          {line.aiTag}
-                        </span>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 flex items-center gap-1">
-                            <Zap className="w-3 h-3" /> {line.energyWh}
-                          </span>
-                          <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-                            <Scale className="w-3 h-3" /> {line.licenseDetected}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="text-indigo-200/90 font-mono text-[11px]">
-                        {line.originPrompt}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Code Line */}
-                  <div
-                    className={`flex items-center px-3 py-1 rounded-md transition-colors duration-200 ${
-                      showAuditHighlight
-                        ? "bg-indigo-500/20 border-l-2 border-indigo-400 text-indigo-100"
-                        : "text-slate-300"
+                <div
+                  key={line.lineNumber}
+                  onClick={() => line.isAiGenerated && setSelectedAiLine(line)}
+                  className={`flex items-start gap-3 px-2 py-0.5 rounded transition-colors ${showAiHighlight
+                      ? "bg-[#C85A32]/25 border-l-2 border-[#C85A32] text-amber-100 cursor-pointer"
+                      : "text-stone-300 hover:bg-stone-800/60"
                     }`}
-                  >
-                    <span className="w-8 shrink-0 text-slate-600 select-none text-right pr-4">
-                      {line.lineNumber}
+                >
+                  <span className="text-stone-500 w-5 text-right select-none shrink-0">
+                    {line.lineNumber}
+                  </span>
+                  <span className="flex-1 whitespace-pre">{line.code}</span>
+                  {showAiHighlight && line.aiTag && (
+                    <span className="text-[10px] bg-[#C85A32] text-white px-1.5 py-0.2 rounded font-sans uppercase shrink-0">
+                      Asistido
                     </span>
-                    <pre className="whitespace-pre font-mono">{line.code}</pre>
-                    {showAuditHighlight && (
-                      <span className="ml-auto pl-4 text-[10px] uppercase tracking-wider text-indigo-300 font-semibold">
-                        [IA AUDITADA]
-                      </span>
-                    )}
-                  </div>
+                  )}
                 </div>
               );
             })}
           </div>
         </div>
-      </div>
 
-      {/* Bottom Telemetry & Consent Verification Bar */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.07]">
-          <div className="text-[11px] font-mono uppercase text-[#94A3B8] mb-1">
-            Huella de Inferencia Acumulada
-          </div>
-          <div className="flex items-baseline justify-between">
-            <span className="text-lg font-mono font-bold text-cyan-400">
-              {splitPercent >= 25 ? "0.42 Wh" : "Oculto (Opaco)"}
-            </span>
-            <span className="text-xs font-mono text-emerald-400">
-              Equiv. 0.18g CO₂
-            </span>
-          </div>
-        </div>
-
-        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.07]">
-          <div className="text-[11px] font-mono uppercase text-[#94A3B8] mb-1">
-            Trazabilidad de Corpus y Licencias
-          </div>
-          <div className="flex items-baseline justify-between">
-            <span className="text-sm font-mono font-semibold text-indigo-300">
-              {splitPercent >= 25
-                ? "1 Dependencia GPL-3.0 Atribuida"
-                : "Sin atribución visible"}
-            </span>
-            <span className="text-xs font-mono text-emerald-400">Verificado</span>
-          </div>
-        </div>
-
-        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.07] flex items-center justify-between">
-          <div>
-            <div className="text-[11px] font-mono uppercase text-[#94A3B8]">
-              Consentimiento Expreso IA
+        {/* Ficha de Taller / Tarjeta de Procedencia */}
+        <div className="lg:col-span-5 flex flex-col justify-between paper-sheet p-5 rounded-xl border border-[#D6CBC0]">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E0D6]">
+              <span className="font-serif font-bold text-sm text-[#1C1917] flex items-center gap-1.5">
+                <FileCode className="w-4 h-4 text-[#C85A32]" />
+                Ficha de Procedencia
+              </span>
+              <span className="rubber-stamp rubber-stamp-forest text-[10px]">
+                REVISADO POR HUMANO
+              </span>
             </div>
-            <div className="text-xs font-mono text-[#F8FAFC] mt-0.5">
-              {consentGranted ? "Autorizado por el usuario" : "Inferencia bloqueada (Fallback local)"}
-            </div>
+
+            {selectedAiLine ? (
+              <div className="space-y-3 text-xs">
+                <div>
+                  <span className="text-[#78716C] block text-[11px] font-mono">ASISTENTE UTILIZADO:</span>
+                  <span className="font-semibold text-[#1C1917]">
+                    {selectedAiLine.aiTag || "Módulo de generación"}
+                  </span>
+                </div>
+
+                <div className="p-3 bg-[#FDFBF7] rounded-lg border border-[#E7E0D6]">
+                  <span className="text-[#78716C] block text-[10px] font-mono mb-1">PETICIÓN REGISTRADA:</span>
+                  <p className="italic text-[#44403C] font-serif text-xs">
+                    {selectedAiLine.originPrompt}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 pt-1 font-mono text-[11px]">
+                  <div className="p-2 bg-[#F5EFEB] rounded border border-[#E7E0D6]">
+                    <span className="text-[#78716C] block text-[9px]">ENERGÍA CONSUMIDA</span>
+                    <span className="font-bold text-[#2E5A44]">{selectedAiLine.energyWh}</span>
+                  </div>
+                  <div className="p-2 bg-[#F5EFEB] rounded border border-[#E7E0D6]">
+                    <span className="text-[#78716C] block text-[9px]">COMPATIBILIDAD</span>
+                    <span className="font-bold text-[#1C1917]">GPL-3.0 / Abierta</span>
+                  </div>
+                </div>
+
+                <div className="text-[11px] text-[#78716C] flex items-start gap-2 pt-2">
+                  <CheckCircle className="w-3.5 h-3.5 text-[#2E5A44] shrink-0 mt-0.5" />
+                  <span>Sin mezclas ilegales ni apropiación de código ajeno sin atribución.</span>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8 text-[#78716C] text-xs">
+                Haz clic en cualquier línea destacada del editor para inspeccionar su trazabilidad.
+              </div>
+            )}
           </div>
-          <button
-            type="button"
-            onClick={() => setConsentGranted(!consentGranted)}
-            className={`px-3 py-1.5 rounded-lg font-mono text-xs font-semibold border editorial-transition cursor-pointer ${
-              consentGranted
-                ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
-                : "bg-amber-500/20 text-amber-300 border-amber-500/40"
-            }`}
-          >
-            {consentGranted ? "ACTIVO" : "REVOCADO"}
-          </button>
+
+          <div className="mt-4 pt-3 border-t border-[#E7E0D6] text-[11px] font-mono text-[#78716C] flex items-center justify-between">
+            <span>Estándar LSC v2.6</span>
+            <span>Atribución Completa</span>
+          </div>
         </div>
       </div>
     </div>
