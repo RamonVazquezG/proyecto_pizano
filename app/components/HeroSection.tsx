@@ -33,11 +33,10 @@ export default function HeroSection() {
         {/* Gran Título Editorial */}
         <div className="space-y-6">
           <h1 className="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#1C1917] leading-[1.08]">
-            El software concebido como{" "}
+            LM & Ladies{" "}
             <span className="italic underline decoration-[#C85A32]/40 decoration-wavy decoration-2 text-[#C85A32]">
-              oficio humano
+              Devs
             </span>
-            , nunca como trampa extractiva.
           </h1>
 
           {/* Cita en pergamino */}

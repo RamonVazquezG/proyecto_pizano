@@ -59,10 +59,7 @@ export default function Navbar() {
           </div>
           <div className="flex flex-col">
             <span className="font-serif text-sm tracking-wide font-bold text-[#1C1917]">
-              Código LSC
-            </span>
-            <span className="text-[11px] text-[#78716C] font-mono hidden sm:inline">
-              Edición de Taller • Ética Humana
+              LM & Ladies Devs
             </span>
           </div>
         </a>
